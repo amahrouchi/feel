@@ -2,6 +2,7 @@ let path    = require('path');
 let webpack = require('webpack');
 
 module.exports = {
+    mode    : 'development',
     entry   : './app/src/app.js',
     output  : {
         path     : path.resolve(__dirname, 'app/public/js'),
@@ -20,5 +21,5 @@ module.exports = {
         colors : true
     },
     devtool : 'source-map',
-    watch : true
+    watch   : true
 };
