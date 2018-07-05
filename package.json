@@ -1,14 +1,15 @@
 {
+  "scripts": {
+    "build": "webpack"
+  },
   "dependencies": {
     "phaser": "^3.10.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0"
+    "webpack": "^4.15.0",
+    "webpack-cli": "^3.0.8"
   }
 }
