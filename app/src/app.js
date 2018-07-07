@@ -2,6 +2,7 @@
 /* TEST ES6 */
 /* ******** */
 
+import Phaser from 'phaser';
 import {A} from './tests/test';
 import {B} from './tests/test2';
 
