@@ -10,7 +10,7 @@ export default class AbstractScene extends Phaser.Scene
      * Sets the Phaser game object and the scene config
      * @param {{}} config
      */
-    constructor (config) {
+    constructor(config) {
         super(config);
         this._game = null;
     }
@@ -19,7 +19,15 @@ export default class AbstractScene extends Phaser.Scene
      * Sets the scene game
      * @param {Phaser.Game} game
      */
-    set game (game) {
+    set game(game) {
         this._game = game;
+    }
+
+    /**
+     * Gets the Phaser game object
+     * @returns {Phaser.Game|null}
+     */
+    get game() {
+        return this._game;
     }
 }
