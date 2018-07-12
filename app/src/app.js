@@ -1,10 +1,11 @@
-import 'phaser';
-import {Test} from './scenes/test';
+import Phaser from 'phaser';
+import MainMenu from './scenes/MainMenu';
 import config from './config';
 
 // Prepare the default scene
-let example = new Test();
-config.scene = example;
+let menu     = new MainMenu();
+config.scene = menu;
 
 // Start the game
-let game = new Phaser.Game(config);
+let game  = new Phaser.Game(config);
+menu.game = game;
