@@ -1,9 +1,19 @@
+/**
+ * The test scene used in the phaser tutorial
+ */
 export class Test extends Phaser.Scene {
 
+    /**
+     * The constructor
+     */
     constructor() {
         super({key: "Test"});
     }
 
+    /**
+     * The preload function
+     * @return {void}
+     */
     preload ()
     {
         this.load.setBaseURL('http://labs.phaser.io');
@@ -13,6 +23,10 @@ export class Test extends Phaser.Scene {
         this.load.image('red', 'assets/particles/red.png');
     }
 
+    /**
+     * The create function
+     * @return {void}
+     */
     create ()
     {
         this.add.image(400, 300, 'sky');

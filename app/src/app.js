@@ -1,27 +1,10 @@
-/* ******** */
-/* TEST ES6 */
-/* ******** */
-
 import 'phaser';
 import {Test} from './scenes/test';
+import config from './config';
 
+// Prepare the default scene
 let example = new Test();
+config.scene = example;
 
-let config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 200 }
-        }
-    },
-    scene: example
-};
-
-/* *********** */
-/* TEST PHASER */
-/* *********** */
-
+// Start the game
 let game = new Phaser.Game(config);
