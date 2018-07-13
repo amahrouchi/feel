@@ -17,19 +17,22 @@ export default class MainMenu extends AbstractScene
      */
     preload() {
         // Nothing here at the moment
+        console.log('preload1');
     }
 
     /**
      * The create function
      */
     create() {
-        this._buildMenu();
+        this.displayTitle();
+        this._displayMenu();
     }
 
     /**
      * The update function
      */
     update() {
+        console.log('update');
         // Nothing here at the moment
     }
 
@@ -38,26 +41,18 @@ export default class MainMenu extends AbstractScene
     /* **************************** */
 
     /**
-     * Builds the main manu
+     * Builds the main menu
      * @private
      */
-    _buildMenu() {
+    _displayMenu() {
 
         // The text menu config
-        let centerX     = this._game.config.width / 2,
+        let centerX     = this.game.config.width / 2,
             textConfig  = {
                 fontSize   : '40px',
                 fill       : '#fff',
                 fontFamily : 'Arial'
-            },
-            titleConfig = {
-                fontSize   : '100px',
-                fill       : '#ff0000',
-                fontFamily : 'Arial'
             };
-
-        let title = this.add.text(centerX, 50, "Feel", titleConfig);
-        title.setOrigin(0.5, 0);
 
         let play = this.add.text(centerX, 250, "Play", textConfig);
         play.setOrigin(0.5, 0)
@@ -84,8 +79,7 @@ export default class MainMenu extends AbstractScene
         /*
          * `this` here refers to the 'Play' text object
          */
-        console.log(this.scene.game);
-        console.log(arguments);
+        this.scene.scene.start('CharacterSelection');
     }
 
     /**

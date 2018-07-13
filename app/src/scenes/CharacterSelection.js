@@ -1,10 +1,9 @@
-import 'phaser';
+import AbstractScene from "./AbstractScene";
 
 /**
  * Character selection scene
  */
-export default class CharacterSelection extends Phaser.Scene
-{
+export default class CharacterSelection extends AbstractScene {
     /**
      * CharacterSelection scene constructor
      */
@@ -17,13 +16,14 @@ export default class CharacterSelection extends Phaser.Scene
      */
     preload() {
         // Nothing here ATM
+        // console.log('preload');
     }
 
     /**
      * The create function
      */
-    create() {
-        // Nothing here ATM
+    create(data) {
+        this.displayTitle();
     }
 
     /**

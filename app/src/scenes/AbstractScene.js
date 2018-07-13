@@ -16,6 +16,14 @@ export default class AbstractScene extends Phaser.Scene
     }
 
     /**
+     * Gets the Phaser game object
+     * @returns {Phaser.Game|null}
+     */
+    get game() {
+        return this._game;
+    }
+
+    /**
      * Sets the scene game
      * @param {Phaser.Game} game
      */
@@ -24,10 +32,18 @@ export default class AbstractScene extends Phaser.Scene
     }
 
     /**
-     * Gets the Phaser game object
-     * @returns {Phaser.Game|null}
+     * Display the title
+     * @protected
      */
-    get game() {
-        return this._game;
+    displayTitle() {
+        let centerX     = this.game.config.width / 2,
+            titleConfig = {
+                fontSize   : '100px',
+                fill       : '#ff0000',
+                fontFamily : 'Arial'
+            };
+
+        let title = this.add.text(centerX, 50, "Feel", titleConfig);
+        title.setOrigin(0.5, 0);
     }
 }

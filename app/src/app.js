@@ -1,11 +1,17 @@
 import Phaser from 'phaser';
 import MainMenu from './scenes/MainMenu';
 import config from './config';
+import CharacterSelection from "./scenes/CharacterSelection";
 
 // Prepare the default scene
-let menu     = new MainMenu();
-config.scene = menu;
+config.scene = [
+    new MainMenu(),
+    new CharacterSelection()
+];
 
 // Start the game
 let game  = new Phaser.Game(config);
-menu.game = game;
+
+for (let sceneItem of config.scene) {
+    sceneItem.game = game;
+}
