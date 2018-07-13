@@ -35,7 +35,6 @@ export default class MainMenu extends AbstractScene
 
     /* **************************** */
     /* ****** PRIVATE MEMBERS ***** */
-
     /* **************************** */
 
     /**
@@ -98,6 +97,7 @@ export default class MainMenu extends AbstractScene
          * `this` here refers to the 'Options' text object
          */
         console.log('TODO: click options');
+        console.log(this);
     }
 
     /**
