@@ -17,7 +17,7 @@ export default class MainMenu extends AbstractScene
      */
     preload() {
         // Nothing here at the moment
-        console.log('preload1');
+        // console.log('preload1');
     }
 
     /**
@@ -32,7 +32,7 @@ export default class MainMenu extends AbstractScene
      * The update function
      */
     update() {
-        console.log('update');
+        // console.log('update');
         // Nothing here at the moment
     }
 
