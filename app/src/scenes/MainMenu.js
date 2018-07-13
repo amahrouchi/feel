@@ -6,7 +6,7 @@ import AbstractScene from "./AbstractScene";
 export default class MainMenu extends AbstractScene
 {
     /**
-     * Constructor
+     * MainMenu scene constructor
      */
     constructor() {
         super({'key' : 'MainMenu'})
