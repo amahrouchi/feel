@@ -1,13 +1,15 @@
 import Phaser from 'phaser';
-import MainMenu from './scenes/MainMenu';
 import config from './config';
+import MainMenu from './scenes/MainMenu';
 import CharacterSelection from "./scenes/CharacterSelection";
+import Game from "./scenes/Game";
 import CanvasResize from "./misc/CanvasResize";
 
 // Prepare the default scene
 config.scene = [
     new MainMenu(),
-    new CharacterSelection()
+    new CharacterSelection(),
+    new Game()
 ];
 
 // Start the game

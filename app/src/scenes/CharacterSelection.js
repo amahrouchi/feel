@@ -5,7 +5,8 @@ import Sense from "../config/Sense";
 /**
  * Character selection scene
  */
-export default class CharacterSelection extends AbstractScene {
+export default class CharacterSelection extends AbstractScene
+{
 
     /**
      * CharacterSelection scene constructor
@@ -66,7 +67,7 @@ export default class CharacterSelection extends AbstractScene {
      * @private
      */
     _createSenseItem(x, y, text, senseKey) {
-        let textConfig  = {
+        let textConfig = {
             fontSize   : '40px',
             fill       : '#fff',
             fontFamily : 'Arial'
@@ -77,7 +78,10 @@ export default class CharacterSelection extends AbstractScene {
             .setInteractive()
             .on('pointerover', this._menuEvents.textBlue)
             .on('pointerout', this._menuEvents.textWhite)
-            .on('pointerup', this._selectSense, {'senseKey' : senseKey});
+            .on('pointerdown', this._selectSense, {
+                'senseKey'           : senseKey,
+                'characterSelection' : this,
+            });
 
         return item;
     }
@@ -87,7 +91,8 @@ export default class CharacterSelection extends AbstractScene {
      * @private
      */
     _selectSense() {
-        console.log(this);
-        console.log(arguments);
+        this.characterSelection.scene.start('Game', {
+            'sense' : this.senseKey
+        });
     }
 }
