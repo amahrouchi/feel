@@ -48,11 +48,11 @@ export default class CharacterSelection extends AbstractScene {
             line1Offset = 200,
             line2Offset = 100;
 
-        let sense1 = this._createCharacterItem(centerX, line1Y, 'Sight');
-        let sense2 = this._createCharacterItem(centerX - line1Offset, line1Y, 'Sound');
-        let sense3 = this._createCharacterItem(centerX + line1Offset, line1Y, 'Smell');
-        let sense4 = this._createCharacterItem(centerX - line2Offset, line2Y, 'Taste');
-        let sense5 = this._createCharacterItem(centerX + line2Offset, line2Y, 'Touch');
+        let sense1 = this._createSenseItem(centerX, line1Y, 'Sight');
+        let sense2 = this._createSenseItem(centerX - line1Offset, line1Y, 'Sound');
+        let sense3 = this._createSenseItem(centerX + line1Offset, line1Y, 'Smell');
+        let sense4 = this._createSenseItem(centerX - line2Offset, line2Y, 'Taste');
+        let sense5 = this._createSenseItem(centerX + line2Offset, line2Y, 'Touch');
     }
 
     /**
@@ -63,7 +63,7 @@ export default class CharacterSelection extends AbstractScene {
      * @returns {Phaser.GameObjects.Text}
      * @private
      */
-    _createCharacterItem(x, y, text) {
+    _createSenseItem(x, y, text) {
         let textConfig  = {
             fontSize   : '40px',
             fill       : '#fff',
