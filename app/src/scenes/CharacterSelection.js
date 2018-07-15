@@ -1,5 +1,6 @@
 import AbstractScene from "./AbstractScene";
 import MenuEvents from "../misc/MenuEvents";
+import Sense from "../config/Sense";
 
 /**
  * Character selection scene
@@ -48,11 +49,11 @@ export default class CharacterSelection extends AbstractScene {
             line1Offset = 200,
             line2Offset = 100;
 
-        let sense1 = this._createSenseItem(centerX, line1Y, 'Sight');
-        let sense2 = this._createSenseItem(centerX - line1Offset, line1Y, 'Sound');
-        let sense3 = this._createSenseItem(centerX + line1Offset, line1Y, 'Smell');
-        let sense4 = this._createSenseItem(centerX - line2Offset, line2Y, 'Taste');
-        let sense5 = this._createSenseItem(centerX + line2Offset, line2Y, 'Touch');
+        let sense1 = this._createSenseItem(centerX, line1Y, 'Sight', Sense.SIGHT);
+        let sense2 = this._createSenseItem(centerX - line1Offset, line1Y, 'Sound', Sense.SOUND);
+        let sense3 = this._createSenseItem(centerX + line1Offset, line1Y, 'Smell', Sense.SMELL);
+        let sense4 = this._createSenseItem(centerX - line2Offset, line2Y, 'Taste', Sense.TASTE);
+        let sense5 = this._createSenseItem(centerX + line2Offset, line2Y, 'Touch', Sense.TOUCH);
     }
 
     /**
@@ -60,10 +61,11 @@ export default class CharacterSelection extends AbstractScene {
      * @param {int} x
      * @param {int} y
      * @param {string} text
+     * @param {string} senseKey
      * @returns {Phaser.GameObjects.Text}
      * @private
      */
-    _createSenseItem(x, y, text) {
+    _createSenseItem(x, y, text, senseKey) {
         let textConfig  = {
             fontSize   : '40px',
             fill       : '#fff',
@@ -74,8 +76,18 @@ export default class CharacterSelection extends AbstractScene {
         item.setOrigin(0.5, 0)
             .setInteractive()
             .on('pointerover', this._menuEvents.textBlue)
-            .on('pointerout', this._menuEvents.textWhite);
+            .on('pointerout', this._menuEvents.textWhite)
+            .on('pointerup', this._selectSense, {'senseKey' : senseKey});
 
         return item;
+    }
+
+    /**
+     * Select a sense to play with
+     * @private
+     */
+    _selectSense() {
+        console.log(this);
+        console.log(arguments);
     }
 }
