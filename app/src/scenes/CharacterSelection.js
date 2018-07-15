@@ -1,4 +1,5 @@
 import AbstractScene from "./AbstractScene";
+import MenuEvents from "../misc/MenuEvents";
 
 /**
  * Character selection scene
@@ -10,6 +11,7 @@ export default class CharacterSelection extends AbstractScene {
      */
     constructor() {
         super({'key' : 'CharacterSelection'});
+        this._menuEvents = new MenuEvents();
     }
 
     /**
@@ -70,7 +72,9 @@ export default class CharacterSelection extends AbstractScene {
 
         let item = this.add.text(x, y, text, textConfig);
         item.setOrigin(0.5, 0)
-            .setInteractive();
+            .setInteractive()
+            .on('pointerover', this._menuEvents.textBlue)
+            .on('pointerout', this._menuEvents.textWhite);
 
         return item;
     }

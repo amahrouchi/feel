@@ -1,4 +1,5 @@
 import AbstractScene from "./AbstractScene";
+import MenuEvents from "../misc/MenuEvents";
 
 /**
  * Main menu scene
@@ -9,7 +10,8 @@ export default class MainMenu extends AbstractScene
      * MainMenu scene constructor
      */
     constructor() {
-        super({'key' : 'MainMenu'})
+        super({'key' : 'MainMenu'});
+        this._menuEvents = new MenuEvents();
     }
 
     /**
@@ -58,16 +60,16 @@ export default class MainMenu extends AbstractScene
         play.setOrigin(0.5, 0)
             .setInteractive()
             .on('pointerdown', this._clickPlay)
-            .on('pointerover', this._itemOver)
-            .on('pointerout', this._itemOut)
+            .on('pointerover', this._menuEvents.textBlue)
+            .on('pointerout', this._menuEvents.textWhite)
         ;
 
         let options = this.add.text(centerX, 325, "Options", textConfig);
         options.setOrigin(0.5, 0)
                .setInteractive()
                .on('pointerdown', this._clickOptions)
-               .on('pointerover', this._itemOver)
-               .on('pointerout', this._itemOut)
+               .on('pointerover', this._menuEvents.textBlue)
+               .on('pointerout', this._menuEvents.textWhite)
         ;
     }
 
@@ -92,27 +94,5 @@ export default class MainMenu extends AbstractScene
          */
         console.log('TODO: click options');
         console.log(this);
-    }
-
-    /**
-     * Changes menu item color
-     * @private
-     */
-    _itemOver() {
-        /*
-         * `this` here refers to the text object
-         */
-        this.setFill('#00f');
-    }
-
-    /**
-     * Resets menu item color
-     * @private
-     */
-    _itemOut() {
-        /*
-         * `this` here refers to the text object
-         */
-        this.setFill('#fff');
     }
 }
