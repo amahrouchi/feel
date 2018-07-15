@@ -1,4 +1,6 @@
-- webpack => TS instead of ES6
-- go to the phaser 3 tuto - step 5 "Hello world"
+- Generer le niveau
+- gérer les deplacemements du joueur dans ce niveau
 
-- Bah faut coder quoi !
+@see
+- Tilemaps
+- Camera
