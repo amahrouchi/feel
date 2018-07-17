@@ -1,5 +1,8 @@
-- Generer le niveau
-- gérer les deplacemements du joueur dans ce niveau
+- Algo de labyrinth PHP => JS
+- Choisir 2 tilesets
+- Générer la tilemap
+- Gérer la camera
+- Afficher et déplacer le joueur sur la map
 
 @see
 - Tilemaps
