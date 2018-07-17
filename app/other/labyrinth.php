@@ -1,44 +1,46 @@
 <?php
-/**
- * Generates the labyrinth
- */
-
-$line = array_fill(0,21,0);
-$matrix = array_fill(0,21, $line);
-$matrix[11][11] = 1;
-$matrix[11][12] = 1;
-$matrix[11][13] = 1;
-$matrix[11][10] = 1;
-$matrix[11][9] = 1;
-$matrix[12][11] = 1;
-$matrix[13][11] = 1;
-$matrix[10][11] = 1;
-$matrix[19][11] = 1;
+$width = 41;
+$center = 21;
+$line = array_fill(0,$width,0);
+$matrix = array_fill(0,$width, $line);
+$matrix[$center][$center] = 1;
+$matrix[$center][$center + 1] = 1;
+$matrix[$center][$center + 2] = 1;
+$matrix[$center][$center - 1] = 1;
+$matrix[$center][$center - 2] = 1;
+$matrix[$center + 1][$center] = 1;
+$matrix[$center + 2][$center] = 1;
+$matrix[$center - 1][$center] = 1;
+$matrix[$center - 2][$center] = 1;
 
 $nodes = [
-    [11,13],
-    [11,9],
-    [9,11],
-    [13,11],
+    [$center, $center + 2],
+    [$center, $center - 2],
+    [$center + 2, $center],
+    [$center - 2, $center],
 ];
 
-foreach ($nodes as $nodeKey => $node) {
+$nodeKey = 0;
+$count = 0;
+while (isset($nodes[$nodeKey])) {
+    // foreach ($nodes as $nodeKey => $node) {
+    $node = $nodes[$nodeKey];
+
     // Current coordinates
     $x = $node[0];
     $y = $node[1];
 
     // Coordinates for cell around the current one
     $around = [
-        [$x, $y + 1], // ponderer en fonction de la direction (50% tout droit, 25% virage)
-        [$x, $y - 1],
-        [$x + 1, $y],
-        [$x + 1, $y],
+        [$x, $y + 2], // ponderer en fonction de la direction (50% tout droit, 25% virage)
+        [$x, $y - 2],
+        [$x + 2, $y],
+        [$x - 2, $y],
     ];
 
     // Iterate on cells around
-    $stop = 0;
     foreach ($around as $nextCell) {
-        // Celle coords
+        // Cell coords
         $nextCellX = $nextCell[0];
         $nextCellY = $nextCell[1];
 
@@ -47,7 +49,6 @@ foreach ($nodes as $nodeKey => $node) {
             !isset($matrix[$nextCellX][$nextCellY])
             || $matrix[$nextCellX][$nextCellY] === 1
         ) {
-            $stop++;
             continue;
         }
 
@@ -56,16 +57,36 @@ foreach ($nodes as $nodeKey => $node) {
             $rng = rand(0, 99);
             if ($rng < 50) {
                 $matrix[$nextCellX][$nextCellY] = 1;
+
+                if ($nextCellX !== $x) {
+                    $a = ($nextCellX + $x) / 2;
+                    $matrix[$a][$nextCellY] = 1;
+                }
+
+                if ($nextCellY !== $y) {
+                    $a = ($nextCellY + $y) / 2;
+                    $matrix[$nextCellX][$a] = 1;
+                }
+
                 $nodes[] = [$nextCellX, $nextCellY];
-            } else {
-                $stop++;
+
+                $count++;
             }
         }
     }
 
+    // $stop var is useless ATM
+
     // All cells are unavailable => remove the node
     unset($nodes[$nodeKey]);
+    $nodeKey++;
 }
 
+foreach($matrix as $line) {
+    foreach($line as $cell) {
+        echo $cell === 1 ? "\e[47m \e[49m" : "\e[44m \e[49m";
+    }
+    echo PHP_EOL;
+}
 
-
+echo $count . PHP_EOL;
