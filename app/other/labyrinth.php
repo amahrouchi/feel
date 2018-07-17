@@ -78,14 +78,14 @@ function matrix(int $width, int $center, int $pathRatio, int $loopRatio)
                 }
 
                 // Cell between the node and the new created cell
+                // TODO: factorize
                 if ($nextCellX !== $x) {
-                    $a                      = ($nextCellX + $x) / 2;
-                    $matrix[$a][$nextCellY] = 1;
+                    $xBetween                      = ($nextCellX + $x) / 2;
+                    $matrix[$xBetween][$nextCellY] = 1;
                 }
-
                 if ($nextCellY !== $y) {
-                    $a                      = ($nextCellY + $y) / 2;
-                    $matrix[$nextCellX][$a] = 1;
+                    $yBetween                      = ($nextCellY + $y) / 2;
+                    $matrix[$nextCellX][$yBetween] = 1;
                 }
 
                 // Add a new node at the end of the nodes array
