@@ -2,14 +2,15 @@
 
 /**
  * Generates the labyrinth
- * @param int $width    Labyrinth width
- * @param int $center   Labyrinth center coordinate
- * @param int $rngRatio The ratio used to create a new adjacent cell
+ * @param int $width     Labyrinth width
+ * @param int $center    Labyrinth center coordinate
+ * @param int $pathRatio The ratio used to create a new adjacent cell
+ * @param int $loopRatio The ratio used to create a loop in the labyrinth
  * @return array ['count' => INT, 'matrix' => ARRAY] <br>
- *                      Where 'count' is the number of cells created and may represent the complexity of the labyrinth <br>
- *                      And where 'matrix' is the labyrinth. Cells at 0 are walls, cells at 1 are the path
+ *                       Where 'count' is the number of cells created and may represent the complexity of the labyrinth <br>
+ *                       And where 'matrix' is the labyrinth. Cells at 0 are walls, cells at 1 are the path
  */
-function matrix(int $width, int $center, int $rngRatio)
+function matrix(int $width, int $center, int $pathRatio, int $loopRatio)
 {
     // Init the labyrinth
     $line                         = array_fill(0, $width, 0);
@@ -55,42 +56,54 @@ function matrix(int $width, int $center, int $rngRatio)
             $nextCellY = $nextCell[1];
 
             // Unavailable cell
-            if (
-                !isset($matrix[$nextCellX][$nextCellY])
-                || $matrix[$nextCellX][$nextCellY] === 1
-            ) {
+            if (!isset($matrix[$nextCellX][$nextCellY])) {
                 continue;
             }
 
-            // Define if the path continues
-            if ($matrix[$nextCellX][$nextCellY] !== 1) {
+            // Loop creation
+            if ($matrix[$nextCellX][$nextCellY] === 1) {
                 $rng = rand(0, 99);
-                if ($rng < $rngRatio) {
-                    $matrix[$nextCellX][$nextCellY] = 1;
-
-                    if ($nextCellX !== $x) {
-                        $a                      = ($nextCellX + $x) / 2;
-                        $matrix[$a][$nextCellY] = 1;
-                    }
-
-                    if ($nextCellY !== $y) {
-                        $a                      = ($nextCellY + $y) / 2;
-                        $matrix[$nextCellX][$a] = 1;
-                    }
-
-                    $nodes[] = [$nextCellX, $nextCellY];
-
-                    $count++;
+                if ($rng >= $loopRatio) {
+                    continue;
                 }
+            }
+
+            // Define if the path continues
+            $rng = rand(0, 99);
+            if ($rng < $pathRatio) {
+                $newNode = false;
+                if ($matrix[$nextCellX][$nextCellY] === 0) {
+                    $matrix[$nextCellX][$nextCellY] = 1;
+                    $newNode                        = true;
+                }
+
+                // Cell between the node and the new created cell
+                if ($nextCellX !== $x) {
+                    $a                      = ($nextCellX + $x) / 2;
+                    $matrix[$a][$nextCellY] = 1;
+                }
+
+                if ($nextCellY !== $y) {
+                    $a                      = ($nextCellY + $y) / 2;
+                    $matrix[$nextCellX][$a] = 1;
+                }
+
+                // Add a new node at the end of the nodes array
+                if ($newNode) {
+                    $nodes[] = [$nextCellX, $nextCellY];
+                }
+
+                $count++;
             }
         }
 
-        // All cells are unavailable => remove the node
+        // Remove the current node
         unset($nodes[$nodeKey]);
+
         $nodeKey++;
     }
 
-    echo $count . PHP_EOL;
+    //echo $count . PHP_EOL;
 
     return ['count' => $count, 'matrix' => $matrix];
 }
@@ -113,8 +126,8 @@ function displayMatrix(array $matrix)
 // Generate a labyrinth complex enough to be playable
 $count  = 0;
 $matrix = [];
-while ($count <= 250) { // 250 represents the number of cells created in the labyrinth (its complexity)
-    $data   = matrix(41, 21, 45);
+while ($count <= 290) { // 250 represents the number of cells created in the labyrinth (its complexity)
+    $data   = matrix(41, 21, 45, 10);
     $count  = $data['count'];
     $matrix = $data['matrix'];
 }
