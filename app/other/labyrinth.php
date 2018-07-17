@@ -1,8 +1,17 @@
 <?php
 
-
-function matrix($width, $center, $rngRatio)
+/**
+ * Generates the labyrinth
+ * @param int $width    Labyrinth width
+ * @param int $center   Labyrinth center coordinate
+ * @param int $rngRatio The ratio used to create a new adjacent cell
+ * @return array ['count' => INT, 'matrix' => ARRAY] <br>
+ *                      Where 'count' is the number of cells created and may represent the complexity of the labyrinth <br>
+ *                      And where 'matrix' is the labyrinth. Cells at 0 are walls, cells at 1 are the path
+ */
+function matrix(int $width, int $center, int $rngRatio)
 {
+    // Init the labyrinth
     $line                         = array_fill(0, $width, 0);
     $matrix                       = array_fill(0, $width, $line);
     $matrix[$center][$center]     = 1;
@@ -15,6 +24,7 @@ function matrix($width, $center, $rngRatio)
     $matrix[$center - 1][$center] = 1;
     $matrix[$center - 2][$center] = 1;
 
+    // Init the nodes
     $nodes = [
         [$center, $center + 2],
         [$center, $center - 2],
@@ -25,12 +35,10 @@ function matrix($width, $center, $rngRatio)
     $nodeKey = 0;
     $count   = 0;
     while (isset($nodes[$nodeKey])) {
-        // foreach ($nodes as $nodeKey => $node) {
+        // Init current node data
         $node = $nodes[$nodeKey];
-
-        // Current coordinates
-        $x = $node[0];
-        $y = $node[1];
+        $x    = $node[0];
+        $y    = $node[1];
 
         // Coordinates for cell around the current one
         $around = [
@@ -87,7 +95,12 @@ function matrix($width, $center, $rngRatio)
     return ['count' => $count, 'matrix' => $matrix];
 }
 
-function displayMatrix($matrix)
+/**
+ * Displays the labyrinth in a console
+ * @param array $matrix
+ * @return void
+ */
+function displayMatrix(array $matrix)
 {
     foreach ($matrix as $line) {
         foreach ($line as $cell) {
@@ -97,9 +110,10 @@ function displayMatrix($matrix)
     }
 }
 
+// Generate a labyrinth complex enough to be playable
 $count  = 0;
 $matrix = [];
-while ($count <= 250) {
+while ($count <= 250) { // 250 represents the number of cells created in the labyrinth (its complexity)
     $data   = matrix(41, 21, 45);
     $count  = $data['count'];
     $matrix = $data['matrix'];
