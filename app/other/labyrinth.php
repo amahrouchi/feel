@@ -117,7 +117,7 @@ function displayMatrix(array $matrix)
 {
     foreach ($matrix as $line) {
         foreach ($line as $cell) {
-            echo $cell === 1 ? "\e[47m \e[49m" : "\e[44m \e[49m";
+            echo $cell === 1 ? "\e[47m  \e[49m" : "\e[44m  \e[49m";
         }
         echo PHP_EOL;
     }
