@@ -1,18 +1,22 @@
+/**
+ * Class handling the generation of the labyrinth matrix
+ */
 export default class Labyrinth {
 
     /**
      * Generates a complex labyrinth
-     * @param {int} width     Labyrinth width
-     * @param {int} center    Labyrinth center coordinate
-     * @param {int} pathRatio The ratio used to create a new adjacent cell
-     * @param {int} loopRatio The ratio used to create a loop in the labyrinth
+     * @param {int} width      Labyrinth width
+     * @param {int} center     Labyrinth center coordinate
+     * @param {int} pathRatio  The ratio used to create a new adjacent cell
+     * @param {int} loopRatio  The ratio used to create a loop in the labyrinth
+     * @param {int} complexity The labyrinth complexity (the number of cells created in the labyrinth)
      * @returns {Array}
      */
-    generate(width, center, pathRatio, loopRatio) {
+    generate(width, center, pathRatio, loopRatio, complexity) {
         let count  = 0;
         let matrix = [];
-        while (count <= 290) { // 290 represents the number of cells created in the labyrinth (its complexity)
-            let data = this._generate(width, center, pathRatio, loopRatio);
+        while (count <= complexity) {
+            let data = this._randomLabyrinth(width, center, pathRatio, loopRatio);
             count    = data.count;
             matrix   = data.matrix;
         }
@@ -30,7 +34,7 @@ export default class Labyrinth {
      * @returns {{count: number, matrix: []}}
      * @private
      */
-    _generate(width, center, pathRatio, loopRatio) {
+    _randomLabyrinth(width, center, pathRatio, loopRatio) {
 
         // Init the labyrinth
         let matrix = this._initMatrix(width, center);
