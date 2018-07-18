@@ -66,7 +66,10 @@ export default class Labyrinth {
                 let nextCellY = nextCell[1];
 
                 // Unavailable cell
-                if (typeof(matrix[nextCellX]) === 'undefined' || typeof(matrix[nextCellX][nextCellY]) === 'undefined') {
+                if (
+                    typeof(matrix[nextCellX]) === 'undefined'
+                    || typeof(matrix[nextCellX][nextCellY]) === 'undefined'
+                ) {
                     continue;
                 }
 
