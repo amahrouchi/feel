@@ -26,14 +26,14 @@ resizer.init();
 // ------------------------------------------
 // TEST: display the labyrinth in the console
 // ------------------------------------------
-let lab = new Labyrinth();
-let matrix = lab.generate(41, 21, 45, 10, 290);
-for (let line of matrix) {
-    let line2 = [];
-    for (let val of line) {
-        line2.push(
-            val === 1 ? val : ' '
-        );
-    }
-    console.log(...line2);
-}
+// let lab = new Labyrinth();
+// let matrix = lab.generate(41, 21, 45, 10, 290);
+// for (let line of matrix) {
+//     let line2 = [];
+//     for (let val of line) {
+//         line2.push(
+//             val === 1 ? val : ' '
+//         );
+//     }
+//     console.log(...line2);
+// }

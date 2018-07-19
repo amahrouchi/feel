@@ -24,15 +24,29 @@ export default class Game extends AbstractScene {
      * The preload function
      */
     preload() {
-        // Nothing here ATM
+        this.load.image('tiles', 'maps/forest.png');
+        this.load.tilemapTiledJSON('forest_json', 'maps/forest.json');
     }
 
     /**
      * The create function
      */
     create(data) {
+        // Get selected sense
         this._sense = this._createSense(data.sense);
-        console.log(this._sense);
+
+        let map         = this.add.tilemap('forest_json');
+        let groundTiles = map.addTilesetImage('tiles');
+        let groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
+        let wallsLayer  = map.createStaticLayer('Walls', groundTiles, 0, 0);
+
+        // the player will collide with this layer
+        // groundLayer.setCollisionByExclusion([-1]);
+
+        // set the boundaries of our game world
+        // this.physics.world.bounds.width = groundLayer.width;
+        // this.physics.world.bounds.height = groundLayer.height;
+
     }
 
     /**
