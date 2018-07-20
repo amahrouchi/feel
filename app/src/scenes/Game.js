@@ -6,6 +6,8 @@ import Sound from "../senses/Sound";
 import Smell from "../senses/Smell";
 import Touch from "../senses/Touch";
 import Taste from "../senses/Taste";
+import Labyrinth from "../maps/Labyrinth";
+import LabyrinthConfig from "../config/labyrinth";
 
 /**
  * Character selection scene
@@ -18,14 +20,37 @@ export default class Game extends AbstractScene {
     constructor() {
         super({'key' : 'Game'});
         this._sense = null;
+        this._labyrinth = null;
     }
 
     /**
      * The preload function
      */
     preload() {
+        // Load assets
         this.load.image('tiles', 'maps/forest.png');
         this.load.tilemapTiledJSON('forest_json', 'maps/forest.json');
+
+        // Generate the labyrinth
+        this._labyrinth = new Labyrinth();
+        let matrix      = this._labyrinth.generate(
+            LabyrinthConfig.WIDTH,
+            LabyrinthConfig.CENTER,
+            LabyrinthConfig.PATH_RATIO,
+            LabyrinthConfig.LOOP_RATIO,
+            LabyrinthConfig.COMPLEXITY
+        );
+
+        // Display the labyrinth in the console
+        for (let line of matrix) {
+            let line2 = [];
+            for (let val of line) {
+                line2.push(
+                    val === 1 ? val : ' '
+                );
+            }
+            console.log(...line2);
+        }
     }
 
     /**
@@ -34,6 +59,7 @@ export default class Game extends AbstractScene {
     create(data) {
         // Get selected sense
         this._sense = this._createSense(data.sense);
+        console.log(this._sense);
 
         let map         = this.add.tilemap('forest_json');
         let groundTiles = map.addTilesetImage('tiles');
