@@ -1,7 +1,24 @@
+import LabyrinthConfig from '../config/labyrinth';
+
 /**
  * Class handling the generation of the labyrinth matrix
  */
 export default class Labyrinth {
+
+    /**
+     * The Labyrinth class constructor
+     */
+    constructor() {
+        this._matrix = null
+    }
+
+    /**
+     * The matrix getter
+     * @returns {null|*}
+     */
+    get matrix() {
+        return this._matrix;
+    }
 
     /**
      * Generates a complex labyrinth
@@ -10,7 +27,7 @@ export default class Labyrinth {
      * @param {int} pathRatio  The ratio used to create a new adjacent cell
      * @param {int} loopRatio  The ratio used to create a loop in the labyrinth
      * @param {int} complexity The labyrinth complexity (the number of cells created in the labyrinth)
-     * @returns {Array}
+     * @returns {void}
      */
     generate(width, center, pathRatio, loopRatio, complexity) {
         let count  = 0;
@@ -21,7 +38,24 @@ export default class Labyrinth {
             matrix   = data.matrix;
         }
 
-        return matrix;
+        this._matrix = matrix;
+    }
+
+    /**
+     * Displays the labyrinth in the console
+     * @return {void}
+     */
+    consoleDisplay() {
+        // Display the labyrinth in the console
+        for (let line of this._matrix) {
+            let line2 = [];
+            for (let val of line) {
+                line2.push(
+                    val === 1 ? val : ' '
+                );
+            }
+            console.log(...line2);
+        }
     }
 
 
