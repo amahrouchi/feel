@@ -27,7 +27,7 @@ export default class Labyrinth {
      * @param {int} pathRatio  The ratio used to create a new adjacent cell
      * @param {int} loopRatio  The ratio used to create a loop in the labyrinth
      * @param {int} complexity The labyrinth complexity (the number of cells created in the labyrinth)
-     * @returns {void}
+     * @returns {{}}
      */
     generate(width, center, pathRatio, loopRatio, complexity) {
         let count  = 0;
@@ -37,8 +37,37 @@ export default class Labyrinth {
             count    = data.count;
             matrix   = data.matrix;
         }
-
         this._matrix = matrix;
+
+        return this._generateTilemapJSON(width);
+    }
+
+    /**
+     * Generated the JSON used to build the Tiled tilemap
+     * @return {{}}
+     */
+    _generateTilemapJSON(size) {
+
+        let tilemap    = this._initTilemapJSON(size);
+        let groundData = tilemap.layers[0].data;
+        let wallsData  = tilemap.layers[1].data;
+
+        let y = 0;
+        for (let line of this._matrix) {
+            let x = 0;
+            for (let val of line) {
+
+                groundData.push(LabyrinthConfig.GROUND_TILE_INDEX);
+                wallsData.push(
+                    val === 0 ? LabyrinthConfig.WALL_TILE_INDEX : 0
+                );
+
+                x++;
+            }
+            y++;
+        }
+
+        return tilemap;
     }
 
     /**
@@ -207,6 +236,50 @@ export default class Labyrinth {
             [center + 2, center],
             [center - 2, center],
         ];
+    }
+
+
+    /**
+     * Initializes the tilemap JSON
+     * @param {int} size
+     * @return {{}}
+     * @private
+     */
+    _initTilemapJSON(size) {
+        let tilemap                    = LabyrinthConfig.defaultJson;
+        tilemap.width                  = size;
+        tilemap.height                 = size;
+        tilemap.tilewidth              = LabyrinthConfig.TILE_SIZE;
+        tilemap.tileheight             = LabyrinthConfig.TILE_SIZE;
+        tilemap.tilesets[0].tilewidth  = LabyrinthConfig.TILE_SIZE;
+        tilemap.tilesets[0].tileheight = LabyrinthConfig.TILE_SIZE;
+
+        let groundLayer = this._createLayer('Ground', tilemap.layers[0], size);
+        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], size);
+
+        tilemap.layers = [];
+        tilemap.layers.push(groundLayer);
+        tilemap.layers.push(wallsLayer);
+
+        return tilemap;
+    }
+
+    /**
+     * Creates a layer for the Tiled tilemap
+     * @param {string} name
+     * @param {{}} defaultLayer
+     * @param {int} size
+     * @returns {*}
+     * @private
+     */
+    _createLayer(name, defaultLayer, size) {
+        let layer    = Object.assign({}, defaultLayer);
+        layer.name   = name;
+        layer.width  = size;
+        layer.height = size;
+        layer.data   = [];
+
+        return layer;
     }
 
 }
