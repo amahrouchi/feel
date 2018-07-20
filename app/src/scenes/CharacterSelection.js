@@ -21,7 +21,6 @@ export default class CharacterSelection extends AbstractScene
      */
     preload() {
         // Nothing here ATM
-        // console.log('preload');
     }
 
     /**

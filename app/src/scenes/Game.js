@@ -51,14 +51,11 @@ export default class Game extends AbstractScene {
     create(data) {
         // Get selected sense
         this._sense = this._createSense(data.sense);
-        // console.log(this._sense);
 
         let map         = this.add.tilemap('forest_json');
         let groundTiles = map.addTilesetImage('tiles');
         let groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
         let wallsLayer  = map.createStaticLayer('Walls', groundTiles, 0, 0);
-
-        // console.log(this._labyrinth.matrix);
 
         // the player will collide with this layer
         // groundLayer.setCollisionByExclusion([-1]);
