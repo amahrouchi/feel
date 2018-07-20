@@ -1,5 +1,5 @@
 import AbstractScene from "./AbstractScene";
-import Sense from "../config/Sense";
+import SenseConfig from "../config/sense";
 import AbstractSense from "../senses/AbstractSense";
 import Sight from "../senses/Sight";
 import Sound from "../senses/Sound";
@@ -64,15 +64,15 @@ export default class Game extends AbstractScene {
      */
     _createSense(sense) {
         switch (sense) {
-            case Sense.SIGHT:
+            case SenseConfig.SIGHT:
                 return new Sight();
-            case Sense.SOUND:
+            case SenseConfig.SOUND:
                 return new Sound();
-            case Sense.SMELL:
+            case SenseConfig.SMELL:
                 return new Smell();
-            case Sense.TOUCH:
+            case SenseConfig.TOUCH:
                 return new Touch();
-            case Sense.TASTE:
+            case SenseConfig.TASTE:
                 return new Taste();
             default:
                 throw 'Unknown sense selected.'
