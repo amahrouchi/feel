@@ -4,7 +4,6 @@ import MainMenu from './scenes/MainMenu';
 import CharacterSelection from "./scenes/CharacterSelection";
 import Game from "./scenes/Game";
 import CanvasResize from "./misc/CanvasResize";
-import Labyrinth from "./maps/Labyrinth";
 
 // Prepare the default scene
 config.scene = [
