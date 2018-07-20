@@ -80,7 +80,7 @@ export default {
         ],
         "layers"       : [
             {
-                "name"    : "Ground",
+                "name"    : "Default name",
                 "type"    : "tilelayer",
                 "width"   : null,
                 "height"  : null,
@@ -88,18 +88,7 @@ export default {
                 "visible" : true,
                 "x"       : 0,
                 "y"       : 0,
-                "data"    : [],
-            },
-            {
-                "name"    : "Walls",
-                "type"    : "tilelayer",
-                "width"   : null,
-                "height"  : null,
-                "opacity" : 1,
-                "visible" : true,
-                "x"       : 0,
-                "y"       : 0,
-                "data"    : [],
+                "data"    : null,
             }
         ],
     }
