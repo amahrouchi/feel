@@ -21,36 +21,28 @@ export default class Game extends AbstractScene {
         super({'key' : 'Game'});
         this._sense = null;
         this._labyrinth = null;
+        this._tilemap = null;
     }
 
     /**
      * The preload function
      */
     preload() {
-        // Load assets
-        this.load.image('tiles', 'maps/forest.png');
-        this.load.tilemapTiledJSON('forest_json', 'maps/forest.json');
 
         // Generate the labyrinth
         this._labyrinth = new Labyrinth();
-        let matrix      = this._labyrinth.generate(
+        this._tilemap = this._labyrinth.generate(
             LabyrinthConfig.WIDTH,
             LabyrinthConfig.CENTER,
             LabyrinthConfig.PATH_RATIO,
             LabyrinthConfig.LOOP_RATIO,
             LabyrinthConfig.COMPLEXITY
         );
+        // this._labyrinth.consoleDisplay();
 
-        // Display the labyrinth in the console
-        for (let line of matrix) {
-            let line2 = [];
-            for (let val of line) {
-                line2.push(
-                    val === 1 ? val : ' '
-                );
-            }
-            console.log(...line2);
-        }
+        // Load assets
+        this.load.image('tiles', 'maps/forest.png');
+        this.load.tilemapTiledJSON('forest_json', this._tilemap);
     }
 
     /**
@@ -59,12 +51,14 @@ export default class Game extends AbstractScene {
     create(data) {
         // Get selected sense
         this._sense = this._createSense(data.sense);
-        console.log(this._sense);
+        // console.log(this._sense);
 
         let map         = this.add.tilemap('forest_json');
         let groundTiles = map.addTilesetImage('tiles');
         let groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
         let wallsLayer  = map.createStaticLayer('Walls', groundTiles, 0, 0);
+
+        // console.log(this._labyrinth.matrix);
 
         // the player will collide with this layer
         // groundLayer.setCollisionByExclusion([-1]);
