@@ -43,6 +43,23 @@ export default class Labyrinth {
     }
 
     /**
+     * Displays the labyrinth in the console
+     * @return {void}
+     */
+    consoleDisplay() {
+        // Display the labyrinth in the console
+        for (let line of this._matrix) {
+            let line2 = [];
+            for (let val of line) {
+                line2.push(
+                    val === 1 ? val : ' '
+                );
+            }
+            console.log(...line2);
+        }
+    }
+
+    /**
      * Generated the JSON used to build the Tiled tilemap
      * @return {{}}
      */
@@ -71,22 +88,47 @@ export default class Labyrinth {
     }
 
     /**
-     * Displays the labyrinth in the console
-     * @return {void}
+     * Initializes the tilemap JSON
+     * @param {int} size
+     * @return {{}}
+     * @private
      */
-    consoleDisplay() {
-        // Display the labyrinth in the console
-        for (let line of this._matrix) {
-            let line2 = [];
-            for (let val of line) {
-                line2.push(
-                    val === 1 ? val : ' '
-                );
-            }
-            console.log(...line2);
-        }
+    _initTilemapJSON(size) {
+        let tilemap                    = LabyrinthConfig.defaultJson;
+        tilemap.width                  = size;
+        tilemap.height                 = size;
+        tilemap.tilewidth              = LabyrinthConfig.TILE_SIZE;
+        tilemap.tileheight             = LabyrinthConfig.TILE_SIZE;
+        tilemap.tilesets[0].tilewidth  = LabyrinthConfig.TILE_SIZE;
+        tilemap.tilesets[0].tileheight = LabyrinthConfig.TILE_SIZE;
+
+        let groundLayer = this._createLayer('Ground', tilemap.layers[0], size);
+        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], size);
+
+        tilemap.layers = [];
+        tilemap.layers.push(groundLayer);
+        tilemap.layers.push(wallsLayer);
+
+        return tilemap;
     }
 
+    /**
+     * Creates a layer for the Tiled tilemap
+     * @param {string} name
+     * @param {{}} defaultLayer
+     * @param {int} size
+     * @returns {*}
+     * @private
+     */
+    _createLayer(name, defaultLayer, size) {
+        let layer    = Object.assign({}, defaultLayer);
+        layer.name   = name;
+        layer.width  = size;
+        layer.height = size;
+        layer.data   = [];
+
+        return layer;
+    }
 
     /**
      * Generates a labyrinth
@@ -236,50 +278,6 @@ export default class Labyrinth {
             [center + 2, center],
             [center - 2, center],
         ];
-    }
-
-
-    /**
-     * Initializes the tilemap JSON
-     * @param {int} size
-     * @return {{}}
-     * @private
-     */
-    _initTilemapJSON(size) {
-        let tilemap                    = LabyrinthConfig.defaultJson;
-        tilemap.width                  = size;
-        tilemap.height                 = size;
-        tilemap.tilewidth              = LabyrinthConfig.TILE_SIZE;
-        tilemap.tileheight             = LabyrinthConfig.TILE_SIZE;
-        tilemap.tilesets[0].tilewidth  = LabyrinthConfig.TILE_SIZE;
-        tilemap.tilesets[0].tileheight = LabyrinthConfig.TILE_SIZE;
-
-        let groundLayer = this._createLayer('Ground', tilemap.layers[0], size);
-        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], size);
-
-        tilemap.layers = [];
-        tilemap.layers.push(groundLayer);
-        tilemap.layers.push(wallsLayer);
-
-        return tilemap;
-    }
-
-    /**
-     * Creates a layer for the Tiled tilemap
-     * @param {string} name
-     * @param {{}} defaultLayer
-     * @param {int} size
-     * @returns {*}
-     * @private
-     */
-    _createLayer(name, defaultLayer, size) {
-        let layer    = Object.assign({}, defaultLayer);
-        layer.name   = name;
-        layer.width  = size;
-        layer.height = size;
-        layer.data   = [];
-
-        return layer;
     }
 
 }

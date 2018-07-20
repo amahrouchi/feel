@@ -1,6 +1,5 @@
-- OK => Algo de labyrinth PHP => JS
-- Choisir 2 tilesets
-- Générer la tilemap
+- La map doit être beaucoup plus grande, on ne doit voir que 5 ou 10% de la map sur l'ecran.
+- Revoir l'algo de generation de la map (Labyrinth.js)
 - Gérer la camera
 - Afficher et déplacer le joueur sur la map
 
