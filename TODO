@@ -1,6 +1,6 @@
-- La map doit être beaucoup plus grande, on ne doit voir que 5 ou 10% de la map sur l'ecran.
-- Revoir l'algo de generation de la map (Labyrinth.js)
 - Gérer la camera
+- Quand la cam bouge le reste du world est noir...
+
 - Afficher et déplacer le joueur sur la map
 
 @see Phaser
