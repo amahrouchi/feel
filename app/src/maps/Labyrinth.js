@@ -22,24 +22,24 @@ export default class Labyrinth {
 
     /**
      * Generates a complex labyrinth
-     * @param {int} width      Labyrinth width
+     * @param {int} size       Labyrinth width
      * @param {int} center     Labyrinth center coordinate
      * @param {int} pathRatio  The ratio used to create a new adjacent cell
      * @param {int} loopRatio  The ratio used to create a loop in the labyrinth
      * @param {int} complexity The labyrinth complexity (the number of cells created in the labyrinth)
      * @returns {{}}
      */
-    generate(width, center, pathRatio, loopRatio, complexity) {
+    generate(size, center, pathRatio, loopRatio, complexity) {
         let count  = 0;
         let matrix = [];
         while (count <= complexity) {
-            let data = this._randomLabyrinth(width, center, pathRatio, loopRatio);
+            let data = this._randomLabyrinth(size, center, pathRatio, loopRatio);
             count    = data.count;
             matrix   = data.matrix;
         }
         this._matrix = matrix;
 
-        return this._generateTilemapJSON(width);
+        return this._generateTilemapJSON(size);
     }
 
     /**
@@ -65,24 +65,47 @@ export default class Labyrinth {
      */
     _generateTilemapJSON(size) {
 
-        let tilemap    = this._initTilemapJSON(size);
-        let groundData = tilemap.layers[0].data;
-        let wallsData  = tilemap.layers[1].data;
+        // Double the size of the map
+        let doubledSize = size * LabyrinthConfig.MAP_SIZE_RATIO;
 
+        // Inits the tilemap JSON
+        let tilemap = this._initTilemapJSON(doubledSize);
+
+        // Init layers data
+        let wallMatrix   = [];
+        let groundMatrix = [];
+        for (let i = 0; i < doubledSize; i++) {
+            let groundLine = Array(doubledSize).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
+            groundMatrix.push(groundLine);
+
+            let wallsLine = Array(doubledSize).fill(0, 0);
+            wallMatrix.push(wallsLine);
+        }
+
+        // Generate walls positions
         let y = 0;
         for (let line of this._matrix) {
             let x = 0;
             for (let val of line) {
 
-                groundData.push(LabyrinthConfig.GROUND_TILE_INDEX);
-                wallsData.push(
-                    val === 0 ? LabyrinthConfig.WALL_TILE_INDEX : 0
-                );
+                if (val === 0) {
+                    let currX = x * LabyrinthConfig.MAP_SIZE_RATIO;
+                    let currY = y * LabyrinthConfig.MAP_SIZE_RATIO;
 
+                    for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO; j++) {
+                        for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO; k++) {
+                            wallMatrix[currX + j][currY + k] = LabyrinthConfig.WALL_TILE_INDEX;
+                        }
+                    }
+                }
                 x++;
             }
             y++;
         }
+
+        // Flatten the layers data
+        tilemap.layers[0].data = this._flattenMatrix(groundMatrix);
+        tilemap.layers[1].data = this._flattenMatrix(wallMatrix);
 
         return tilemap;
     }
@@ -131,18 +154,32 @@ export default class Labyrinth {
     }
 
     /**
+     * Flattens a matrix to a simple array
+     * @param matrix
+     * @returns {Array}
+     * @private
+     */
+    _flattenMatrix(matrix) {
+        let result = [];
+        for (let line of matrix) {
+            result.push(...line);
+        }
+        return result;
+    }
+
+    /**
      * Generates a labyrinth
-     * @param {int} width     Labyrinth width
+     * @param {int} size     Labyrinth width
      * @param {int} center    Labyrinth center coordinate
      * @param {int} pathRatio The ratio used to create a new adjacent cell
      * @param {int} loopRatio The ratio used to create a loop in the labyrinth
      * @returns {{count: number, matrix: []}}
      * @private
      */
-    _randomLabyrinth(width, center, pathRatio, loopRatio) {
+    _randomLabyrinth(size, center, pathRatio, loopRatio) {
 
         // Init the labyrinth
-        let matrix = this._initMatrix(width, center);
+        let matrix = this._initMatrix(size, center);
 
         // Init the nodes
         let nodes = this._initNodes(center);
@@ -229,13 +266,13 @@ export default class Labyrinth {
 
     /**
      * Initializes the matrix
-     * @param {int} width
+     * @param {int} size
      * @param {int} center
      * @returns {[]}
      * @private
      */
-    _initMatrix(width, center) {
-        let matrix                 = this._emptyMatrix(width);
+    _initMatrix(size, center) {
+        let matrix                 = this._emptyMatrix(size);
         matrix[center][center]     = 1;
         matrix[center][center + 1] = 1;
         matrix[center][center + 2] = 1;
@@ -251,14 +288,14 @@ export default class Labyrinth {
 
     /**
      * Generates an empty matrix
-     * @param width
+     * @param size
      * @returns {Array}
      * @private
      */
-    _emptyMatrix(width) {
+    _emptyMatrix(size) {
         let matrix = [];
-        for (let i = 0; i < width; i++) {
-            let line = Array(width).fill(0, 0);
+        for (let i = 0; i < size; i++) {
+            let line = Array(size).fill(0, 0);
             matrix.push(line);
         }
 

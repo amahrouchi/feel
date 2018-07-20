@@ -48,6 +48,12 @@ export default {
     TILE_SIZE : 32,
 
     /**
+     * The map size ratio
+     * @var {int}
+     */
+    MAP_SIZE_RATIO : 4,
+
+    /**
      * The default JSON used to create the Tiled tilemap
      * @var {{}}
      */
