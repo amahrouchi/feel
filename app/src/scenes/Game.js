@@ -19,9 +19,9 @@ export default class Game extends AbstractScene {
      */
     constructor() {
         super({'key' : 'Game'});
-        this._sense = null;
+        this._sense     = null;
         this._labyrinth = null;
-        this._tilemap = null;
+        this._cursors = null
     }
 
     /**
@@ -31,7 +31,7 @@ export default class Game extends AbstractScene {
 
         // Generate the labyrinth
         this._labyrinth = new Labyrinth();
-        this._tilemap = this._labyrinth.generate(
+        let tilemap     = this._labyrinth.generate(
             LabyrinthConfig.WIDTH,
             LabyrinthConfig.CENTER,
             LabyrinthConfig.PATH_RATIO,
@@ -42,7 +42,7 @@ export default class Game extends AbstractScene {
 
         // Load assets
         this.load.image('tiles', 'maps/forest.png');
-        this.load.tilemapTiledJSON('forest_json', this._tilemap);
+        this.load.tilemapTiledJSON('forest_json', tilemap);
     }
 
     /**
@@ -57,20 +57,39 @@ export default class Game extends AbstractScene {
         let groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
         let wallsLayer  = map.createStaticLayer('Walls', groundTiles, 0, 0);
 
-        // the player will collide with this layer
-        // groundLayer.setCollisionByExclusion([-1]);
+        // World size
+        let worldWidth  = map.widthInPixels,
+            worldHeight = map.heightInPixels;
+        console.log(worldHeight, worldWidth);
 
-        // set the boundaries of our game world
-        // this.physics.world.bounds.width = groundLayer.width;
-        // this.physics.world.bounds.height = groundLayer.height;
+        // Set the boundaries of our game world
+        this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
+        this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
 
+        this._cursors = this.input.keyboard.createCursorKeys();
     }
 
     /**
      * The update function
      */
     update() {
-        // Nothing here ATM
+        let speed = 5;
+
+        if (this._cursors.right.isDown) {
+            this.cameras.main.x -= speed;
+        }
+
+        if (this._cursors.left.isDown) {
+            this.cameras.main.x += speed;
+        }
+
+        if (this._cursors.down.isDown) {
+            this.cameras.main.y -= speed;
+        }
+
+        if (this._cursors.up.isDown) {
+            this.cameras.main.y += speed;
+        }
     }
 
     /**
