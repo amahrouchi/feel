@@ -7,8 +7,8 @@ export default {
     height  : 810,
     physics : {
         default : 'arcade',
-        arcade  : {
-            gravity : {y : 200}
-        }
+        // arcade  : {
+        //     gravity : {y : 200}
+        // }
     }
 };

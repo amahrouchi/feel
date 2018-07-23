@@ -7,4 +7,7 @@ export default {
     TASTE : 'taste',
     SOUND : 'sound',
     TOUCH : 'touch',
+
+
+    PLAYER_SPEED : 200,
 }
