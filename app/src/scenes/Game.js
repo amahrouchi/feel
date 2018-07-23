@@ -24,6 +24,7 @@ export default class Game extends AbstractScene {
         this._labyrinth = null;
         this._cursors   = null;
         this._player    = null;
+        this._layers    = {};
     }
 
     /**
@@ -60,11 +61,11 @@ export default class Game extends AbstractScene {
         // Get selected sense
         this._sense = this._createSense(data.sense);
 
-        let map         = this.add.tilemap('forest_json');
-        let groundTiles = map.addTilesetImage('tiles');
-        let groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
-        let wallsLayer  = map.createDynamicLayer('Walls', groundTiles, 0, 0);
-        wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
+        let map                  = this.add.tilemap('forest_json');
+        let groundTiles          = map.addTilesetImage('tiles');
+        this._layers.groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
+        this._layers.wallsLayer  = map.createDynamicLayer('Walls', groundTiles, 0, 0);
+        this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
         // World size
         let worldWidth  = map.widthInPixels,
@@ -77,10 +78,11 @@ export default class Game extends AbstractScene {
         this._cursors = this.input.keyboard.createCursorKeys();
 
         // Player
-        this._player = this.physics.add.sprite(worldWidth / 2, worldHeight / 2, 'player', 4); // Player at the center of the map
+        let positions = this._placePlayer();
+        this._player  = this.physics.add.sprite(positions.x, positions.y, 'player', 4); // Player at the center of the map
         this._player.setCollideWorldBounds(true);
         this.cameras.main.startFollow(this._player);
-        this.physics.add.collider(wallsLayer, this._player);
+        this.physics.add.collider(this._layers.wallsLayer, this._player);
 
     }
 
@@ -129,5 +131,33 @@ export default class Game extends AbstractScene {
             default:
                 throw 'Unknown sense selected.'
         }
+    }
+
+    _placePlayer() {
+
+        let x = 0,
+            y = 0;
+
+        // First cell of the matrix
+        break_block: {
+            y = 0;
+            for (let line of this._labyrinth.matrix) {
+                x = 0;
+                for (let cell of line) {
+                    if (cell === 1) {
+                        break break_block;
+                    }
+                    x++;
+                }
+                y++;
+            }
+        }
+
+        let cellSizeInPixels = LabyrinthConfig.TILE_SIZE * LabyrinthConfig.MAP_SIZE_RATIO;
+
+        return {
+            x : x * cellSizeInPixels + cellSizeInPixels / 2,
+            y : y * cellSizeInPixels + cellSizeInPixels / 2,
+        };
     }
 }

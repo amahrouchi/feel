@@ -94,7 +94,7 @@ export default class Labyrinth {
 
                     for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO; j++) {
                         for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO; k++) {
-                            wallMatrix[currX + j][currY + k] = LabyrinthConfig.WALL_TILE_INDEX;
+                            wallMatrix[currY + k][currX + j] = LabyrinthConfig.WALL_TILE_INDEX;
                         }
                     }
                 }

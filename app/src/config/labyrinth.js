@@ -51,7 +51,7 @@ export default {
      * The map size ratio
      * @var {int}
      */
-    MAP_SIZE_RATIO : 4,
+    MAP_SIZE_RATIO : 5,
 
     /**
      * The default JSON used to create the Tiled tilemap
