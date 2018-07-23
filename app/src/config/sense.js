@@ -8,5 +8,5 @@ export default {
     SOUND : 'sound',
     TOUCH : 'touch',
 
-    PLAYER_SPEED : 300,
+    PLAYER_SPEED : 500,
 }
