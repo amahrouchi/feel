@@ -78,11 +78,17 @@ export default class Game extends AbstractScene {
         this._cursors = this.input.keyboard.createCursorKeys();
 
         // Player
-        let positions = this._placePlayer();
+        let positions = this._playerPosition();
         this._player  = this.physics.add.sprite(positions.x, positions.y, 'player', 4); // Player at the center of the map
         this._player.setCollideWorldBounds(true);
-        this.cameras.main.startFollow(this._player);
         this.physics.add.collider(this._layers.wallsLayer, this._player);
+
+        // Camera configuration
+        this.cameras.main.startFollow(this._player);
+        this.cameras.main.setDeadzone(
+            Config.width * LabyrinthConfig.DEADZONE_RATIO,
+            Config.height * LabyrinthConfig.DEADZONE_RATIO
+        );
 
     }
 
@@ -133,7 +139,12 @@ export default class Game extends AbstractScene {
         }
     }
 
-    _placePlayer() {
+    /**
+     * Determines the player position at the beginning of the game
+     * @returns {{x: number, y: number}}
+     * @private
+     */
+    _playerPosition() {
 
         let x = 0,
             y = 0;

@@ -54,6 +54,12 @@ export default {
     MAP_SIZE_RATIO : 5,
 
     /**
+     * The ratio for the deadzone of the camera
+     * @var {float}
+     */
+    DEADZONE_RATIO : 0.4,
+
+    /**
      * The default JSON used to create the Tiled tilemap
      * @var {{}}
      */

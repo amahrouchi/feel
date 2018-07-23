@@ -1,7 +1,5 @@
-- Gérer la camera
-- Quand la cam bouge le reste du world est noir...
-
-- Afficher et déplacer le joueur sur la map
+- trouver un sprite cool pour le joueur
+- Gérer les animations du déplacement
 
 @see Phaser
 - Tilemaps
