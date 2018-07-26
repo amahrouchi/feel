@@ -4,9 +4,11 @@ import MainMenu from './scenes/MainMenu';
 import CharacterSelection from "./scenes/CharacterSelection";
 import Game from "./scenes/Game";
 import CanvasResize from "./misc/CanvasResize";
+import Preload from "./scenes/Preload";
 
 // Prepare the default scene
 config.scene = [
+    new Preload(),
     new MainMenu(),
     new CharacterSelection(),
     new Game()

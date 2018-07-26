@@ -46,12 +46,6 @@ export default class Game extends AbstractScene {
         // Load assets
         this.load.image('tiles', 'maps/forest.png');
         this.load.tilemapTiledJSON('forest_json', tilemap);
-
-        // Player spritesheet
-        this.load.spritesheet('player',
-            'img/dude.png',
-            {frameWidth : 32, frameHeight : 48}
-        );
     }
 
     /**
@@ -79,7 +73,7 @@ export default class Game extends AbstractScene {
 
         // Player
         let positions = this._playerPosition();
-        this._player  = this.physics.add.sprite(positions.x, positions.y, 'player', 4); // Player at the center of the map
+        this._player  = this.physics.add.sprite(positions.x, positions.y, 'walk0');
         this._player.setCollideWorldBounds(true);
         this.physics.add.collider(this._layers.wallsLayer, this._player);
 
@@ -89,7 +83,6 @@ export default class Game extends AbstractScene {
             Config.width * LabyrinthConfig.DEADZONE_RATIO,
             Config.height * LabyrinthConfig.DEADZONE_RATIO
         );
-
     }
 
     /**
@@ -100,19 +93,19 @@ export default class Game extends AbstractScene {
         this._player.setVelocityY(0);
 
         if (this._cursors.right.isDown) {
+            this._player.anims.play('walk', true);
             this._player.setVelocityX(SenseConfig.PLAYER_SPEED);
-        }
-
-        if (this._cursors.left.isDown) {
+        } else if (this._cursors.left.isDown) {
+            this._player.anims.play('walk', true);
             this._player.setVelocityX(-SenseConfig.PLAYER_SPEED);
-        }
-
-        if (this._cursors.down.isDown) {
+        } else if (this._cursors.down.isDown) {
+            this._player.anims.play('walk', true);
             this._player.setVelocityY(SenseConfig.PLAYER_SPEED);
-        }
-
-        if (this._cursors.up.isDown) {
+        } else if (this._cursors.up.isDown) {
+            this._player.anims.play('walk', true);
             this._player.setVelocityY(-SenseConfig.PLAYER_SPEED);
+        } else {
+            this._player.anims.play('idle', true);
         }
     }
 
