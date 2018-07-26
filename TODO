@@ -1,5 +1,8 @@
-- trouver un sprite cool pour le joueur
-- Gérer les animations du déplacement
+- Gérer le chqrgement des animations dans des classes
+- Gérer toutes les animations de deplqcment correctement
+- scale de l'image du joueur
+- les collisions sur le sprite joueur sont trop large
+
 
 @see Phaser
 - Tilemaps
