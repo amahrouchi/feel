@@ -13,7 +13,8 @@ import Config from '../config'
 /**
  * Character selection scene
  */
-export default class Game extends AbstractScene {
+export default class Game extends AbstractScene
+{
 
     /**
      * CharacterSelection scene constructor
@@ -73,7 +74,7 @@ export default class Game extends AbstractScene {
 
         // Player
         let positions = this._playerPosition();
-        this._player  = this.physics.add.sprite(positions.x, positions.y, 'walk0');
+        this._player  = this.physics.add.sprite(positions.x, positions.y, 'walk0').setScale(SenseConfig.PLAYER_SPRITE_RATIO);
         this._player.setCollideWorldBounds(true);
         this.physics.add.collider(this._layers.wallsLayer, this._player);
 

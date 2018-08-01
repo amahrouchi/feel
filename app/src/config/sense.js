@@ -9,4 +9,6 @@ export default {
     TOUCH : 'touch',
 
     PLAYER_SPEED : 500,
+
+    PLAYER_SPRITE_RATIO : 0.6
 }
