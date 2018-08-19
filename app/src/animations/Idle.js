@@ -1,15 +1,10 @@
 /**
  * The idle animation class
  */
-export class Idle {
+import AbstractAnimation from "./AbstractAnimation";
 
-    /**
-     * Constructor
-     * @param scene
-     */
-    constructor(scene) {
-        this._scene = scene;
-    }
+export default class Idle extends AbstractAnimation
+{
 
     /**
      * Loads images for the animations
