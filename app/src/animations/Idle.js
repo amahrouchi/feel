@@ -1,7 +1,6 @@
-/**
- * The idle animation class
- */
 import AbstractAnimation from "./AbstractAnimation";
+import SenseConfig from "../config/sense";
+
 
 /**
  * Idle animation class
@@ -62,7 +61,7 @@ export default class Idle extends AbstractAnimation
                 {key : 'idle16', frame : null},
                 {key : 'idle17', frame : null}
             ],
-            frameRate : 18,
+            frameRate : SenseConfig.IDLE_FRAME_RATE,
             repeat    : -1
         });
     }

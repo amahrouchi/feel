@@ -10,5 +10,9 @@ export default {
 
     PLAYER_SPEED : 500,
 
-    PLAYER_SPRITE_RATIO : 0.6
+    PLAYER_SPRITE_RATIO : 0.6,
+
+    // Animation config
+    WALK_FRAME_RATE : 40,
+    IDLE_FRAME_RATE : 18,
 }

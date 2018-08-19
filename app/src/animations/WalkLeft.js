@@ -1,4 +1,5 @@
 import AbstractAnimation from "./AbstractAnimation";
+import SenseConfig from "../config/sense";
 
 /**
  * The walk animation class
@@ -57,7 +58,7 @@ export default class WalkLeft extends AbstractAnimation
                 {key : 'walkLeft16', frame : null},
                 {key : 'walkLeft17', frame : null}
             ],
-            frameRate : 18,
+            frameRate : SenseConfig.WALK_FRAME_RATE,
             repeat    : -1
         });
     }
