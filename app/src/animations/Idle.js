@@ -5,7 +5,6 @@ import AbstractAnimation from "./AbstractAnimation";
 
 export default class Idle extends AbstractAnimation
 {
-
     /**
      * Loads images for the animations
      * @return {void}
