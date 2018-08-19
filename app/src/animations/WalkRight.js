@@ -1,7 +1,7 @@
 import AbstractAnimation from "./AbstractAnimation";
 
 /**
- * The walk animation class
+ * The walk right animation class
  */
 export default class WalkRight extends AbstractAnimation
 {

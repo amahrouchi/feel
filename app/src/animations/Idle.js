@@ -3,6 +3,9 @@
  */
 import AbstractAnimation from "./AbstractAnimation";
 
+/**
+ * Idle animation class
+ */
 export default class Idle extends AbstractAnimation
 {
     /**
