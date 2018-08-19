@@ -1,6 +1,6 @@
 import AbstractScene from "./AbstractScene";
 import Idle from "../animations/Idle";
-import Walk from "../animations/Walk";
+import WalkFront from "../animations/WalkFront";
 
 /**
  * Preload scene
@@ -13,15 +13,15 @@ export default class Preload extends AbstractScene
     constructor() {
         super({'key' : 'Preload'});
 
-        this._idle = new Idle(this);
-        this._walk = new Walk(this);
+        this._idle      = new Idle(this);
+        this._walkFront = new WalkFront(this);
     }
 
     /**
      * Preloading function
      */
     preload() {
-        this._walk.loadImages();
+        this._walkFront.loadImages();
         this._idle.loadImages();
     }
 
@@ -29,7 +29,7 @@ export default class Preload extends AbstractScene
      * Create function
      */
     create() {
-        this._walk.create();
+        this._walkFront.create();
         this._idle.create();
 
         this.scene.start('MainMenu');
