@@ -97,7 +97,7 @@ export default class Game extends AbstractScene
             this._player.anims.play('walkRight', true);
             this._player.setVelocityX(SenseConfig.PLAYER_SPEED);
         } else if (this._cursors.left.isDown) {
-            this._player.anims.play('walk', true);
+            this._player.anims.play('walkLeft', true);
             this._player.setVelocityX(-SenseConfig.PLAYER_SPEED);
         } else if (this._cursors.down.isDown) {
             this._player.anims.play('walkFront', true);
