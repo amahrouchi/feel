@@ -90,23 +90,45 @@ export default class Game extends AbstractScene
      * The update function
      */
     update() {
+        // Reset the player velocity
         this._player.setVelocityX(0);
         this._player.setVelocityY(0);
 
+        // Prevent opposite direction conflicts
+        if (
+            (this._cursors.right.isDown && this._cursors.left.isDown)
+            || (this._cursors.up.isDown && this._cursors.down.isDown)
+        ) {
+            this._player.anims.play('idle', true);
+            return;
+        }
+
+
+        // Play animations
         if (this._cursors.right.isDown) {
             this._player.anims.play('walkRight', true);
-            this._player.setVelocityX(SenseConfig.PLAYER_SPEED);
         } else if (this._cursors.left.isDown) {
             this._player.anims.play('walkLeft', true);
-            this._player.setVelocityX(-SenseConfig.PLAYER_SPEED);
         } else if (this._cursors.down.isDown) {
             this._player.anims.play('walkFront', true);
-            this._player.setVelocityY(SenseConfig.PLAYER_SPEED);
         } else if (this._cursors.up.isDown) {
             this._player.anims.play('walkBack', true);
-            this._player.setVelocityY(-SenseConfig.PLAYER_SPEED);
         } else {
             this._player.anims.play('idle', true);
+        }
+
+        // Move the player
+        if (this._cursors.right.isDown) {
+            this._player.setVelocityX(SenseConfig.PLAYER_SPEED);
+        }
+        if (this._cursors.left.isDown) {
+            this._player.setVelocityX(-SenseConfig.PLAYER_SPEED);
+        }
+        if (this._cursors.down.isDown) {
+            this._player.setVelocityY(SenseConfig.PLAYER_SPEED);
+        }
+        if (this._cursors.up.isDown) {
+            this._player.setVelocityY(-SenseConfig.PLAYER_SPEED);
         }
     }
 
