@@ -7,5 +7,8 @@ export default {
     height  : 810,
     physics : {
         default : 'arcade',
+        arcade : {
+            debug : true
+        }
     }
 };
