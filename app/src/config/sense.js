@@ -16,8 +16,9 @@ export default {
     PLAYER_HITBOX_OFFSET_Y : 8,
 
     // Animation config
-    WALK_FRAME_RATE : 50,
-    IDLE_FRAME_RATE : 18,
+    WALK_FRAME_RATE  : 50,
+    IDLE_FRAME_RATE  : 18,
+    SLASH_FRAME_RATE : 18,
 
     // Keyboard configurations
     QWERTY : 'qwerty',
