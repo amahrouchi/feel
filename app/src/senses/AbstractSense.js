@@ -11,9 +11,10 @@ export default class AbstractSense {
      * @param {AbstractScene} scene
      */
     constructor(scene) {
-        this._scene = scene;
-        this._sprite = null;
+        this._scene   = scene;
+        this._sprite  = null;
         this._cursors = null;
+        this._keys    = {};
     }
 
     /**
@@ -41,6 +42,10 @@ export default class AbstractSense {
 
         // Create the cursors
         this._cursors = this._scene.input.keyboard.createCursorKeys();
+        this._keys.W  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this._keys.A  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this._keys.S  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this._keys.D  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
     /**
@@ -64,29 +69,53 @@ export default class AbstractSense {
 
 
         // Play animations
-        if (this._cursors.right.isDown) {
+        if (
+            this._cursors.right.isDown
+            || this._keys.D.isDown
+        ) {
             this._sprite.anims.play('walkRight', true);
-        } else if (this._cursors.left.isDown) {
+        } else if (
+            this._cursors.left.isDown
+            || this._keys.A.isDown
+        ) {
             this._sprite.anims.play('walkLeft', true);
-        } else if (this._cursors.down.isDown) {
+        } else if (
+            this._cursors.down.isDown
+            || this._keys.S.isDown
+        ) {
             this._sprite.anims.play('walkFront', true);
-        } else if (this._cursors.up.isDown) {
+        } else if (
+            this._cursors.up.isDown
+            || this._keys.W.isDown
+        ) {
             this._sprite.anims.play('walkBack', true);
         } else {
             this._sprite.anims.play('idle', true);
         }
 
         // Move the player
-        if (this._cursors.right.isDown) {
+        if (
+            this._cursors.right.isDown
+            || this._keys.D.isDown
+        ) {
             this._sprite.setVelocityX(SenseConfig.PLAYER_SPEED);
         }
-        if (this._cursors.left.isDown) {
+        if (
+            this._cursors.left.isDown
+            || this._keys.A.isDown
+        ) {
             this._sprite.setVelocityX(-SenseConfig.PLAYER_SPEED);
         }
-        if (this._cursors.down.isDown) {
+        if (
+            this._cursors.down.isDown
+            || this._keys.S.isDown
+        ) {
             this._sprite.setVelocityY(SenseConfig.PLAYER_SPEED);
         }
-        if (this._cursors.up.isDown) {
+        if (
+            this._cursors.up.isDown
+            || this._keys.W.isDown
+        ) {
             this._sprite.setVelocityY(-SenseConfig.PLAYER_SPEED);
         }
     }
