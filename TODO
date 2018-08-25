@@ -4,6 +4,8 @@
 - Améliorer l'allure du labyrinthe
     il y a un décalage dans les sprite du sol
     Faire de plus joli mur (voir la sprite sheet)
+- Créer une mini carte avec "war fog"
+- Créer un menu de pause
 - Créer des ennemis
     animations
     attaque
