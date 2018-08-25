@@ -43,31 +43,7 @@ export default class AbstractSense
         this._scene.physics.add.collider(this._scene._layers.wallsLayer, this._sprite);
 
         // Create keys
-        let keyW = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-            keyA = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-            keyS = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-            keyD = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            keyZ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
-            keyQ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            keyK = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
-
-        // QWERTY
-        this._keys[SenseConfig.QWERTY] = {
-            up    : keyW,
-            down  : keyS,
-            left  : keyA,
-            right : keyD,
-        };
-
-        // AZERTY
-        this._keys[SenseConfig.AZERTY] = {
-            up    : keyZ,
-            down  : keyS,
-            left  : keyQ,
-            right : keyD,
-        };
-
-        this._keys.switch = keyK;
+        this._createKeys();
     }
 
     /**
@@ -163,5 +139,38 @@ export default class AbstractSense
             x : x * cellSizeInPixels + cellSizeInPixels / 2,
             y : y * cellSizeInPixels + cellSizeInPixels / 2,
         };
+    }
+
+    /**
+     * Creates keys to move the player
+     * @private
+     */
+    _createKeys() {
+        let keyW = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            keyA = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            keyS = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            keyD = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            keyZ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+            keyQ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            keyK = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+
+        // QWERTY
+        this._keys[SenseConfig.QWERTY] = {
+            up    : keyW,
+            down  : keyS,
+            left  : keyA,
+            right : keyD,
+        };
+
+        // AZERTY
+        this._keys[SenseConfig.AZERTY] = {
+            up    : keyZ,
+            down  : keyS,
+            left  : keyQ,
+            right : keyD,
+        };
+
+        // Switch keys mode
+        this._keys.switch = keyK;
     }
 }
