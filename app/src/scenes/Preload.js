@@ -4,7 +4,7 @@ import WalkFront from "../animations/WalkFront";
 import WalkBack from "../animations/WalkBack";
 import WalkRight from "../animations/WalkRight";
 import WalkLeft from "../animations/WalkLeft";
-import SlashFront from "../animations/SlashFront";
+import SlashDown from "../animations/SlashDown";
 
 /**
  * Preload scene
@@ -17,12 +17,12 @@ export default class Preload extends AbstractScene
     constructor() {
         super({'key' : 'Preload'});
 
-        this._idle       = new Idle(this);
-        this._walkFront  = new WalkFront(this);
-        this._walkBack   = new WalkBack(this);
-        this._walkRight  = new WalkRight(this);
-        this._walkLeft   = new WalkLeft(this);
-        this._slashFront = new SlashFront(this);
+        this._idle      = new Idle(this);
+        this._walkFront = new WalkFront(this);
+        this._walkBack  = new WalkBack(this);
+        this._walkRight = new WalkRight(this);
+        this._walkLeft  = new WalkLeft(this);
+        this._slashDown = new SlashDown(this);
     }
 
     /**
@@ -36,7 +36,7 @@ export default class Preload extends AbstractScene
         this._walkRight.loadImages();
         this._walkLeft.loadImages();
 
-        this._slashFront.loadImages();
+        this._slashDown.loadImages();
     }
 
     /**
@@ -50,7 +50,7 @@ export default class Preload extends AbstractScene
         this._walkRight.create();
         this._walkLeft.create();
 
-        this._slashFront.create();
+        this._slashDown.create();
 
         this.scene.start('MainMenu');
     }

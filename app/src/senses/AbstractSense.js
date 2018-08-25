@@ -131,7 +131,7 @@ export default class AbstractSense
 
             if (this._direction === 'down' || this._direction === 'stop') {
                 this._isAttacking = true;
-                this._sprite.anims.play('slashFront', true);
+                this._sprite.anims.play('slashDown', true);
             }
 
         }
@@ -212,7 +212,7 @@ export default class AbstractSense
      * @private
      */
     _endAttack(animation, frame) {
-        if (animation.key === 'slashFront' && frame.isLast) {
+        if (animation.key === 'slashDown' && frame.isLast) {
             this._isAttacking = false;
         }
     }
