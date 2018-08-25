@@ -4,7 +4,8 @@ import LabyrinthConfig from "../config/labyrinth";
 /**
  * Abstract player class
  */
-export default class AbstractSense {
+export default class AbstractSense
+{
 
     /**
      * Initializes the players
@@ -13,8 +14,8 @@ export default class AbstractSense {
     constructor(scene) {
         this._scene   = scene;
         this._sprite  = null;
-        this._cursors = null;
         this._keys    = {};
+        this._keyMode = 'qwerty';
     }
 
     /**
@@ -42,10 +43,29 @@ export default class AbstractSense {
 
         // Create the cursors
         this._cursors = this._scene.input.keyboard.createCursorKeys();
-        this._keys.W  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this._keys.A  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this._keys.S  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this._keys.D  = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        let keyW      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            keyA      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            keyS      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            keyD      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            keyZ      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+            keyQ      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            keyK      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+
+        // QWERTY
+        this._keys.qwerty = {
+            up    : keyW,
+            down  : keyS,
+            left  : keyA,
+            right : keyD,
+        };
+
+        // AZERTY
+        this._keys.azerty = {
+            up    : keyZ,
+            down  : keyS,
+            left  : keyQ,
+            right : keyD,
+        };
     }
 
     /**
@@ -54,14 +74,16 @@ export default class AbstractSense {
      */
     update() {
 
+        let keys = this._keys[this._keyMode];
+
         // Reset the player velocity
         this._sprite.setVelocityX(0);
         this._sprite.setVelocityY(0);
 
         // Prevent opposite direction conflicts
         if (
-            (this._cursors.right.isDown && this._cursors.left.isDown)
-            || (this._cursors.up.isDown && this._cursors.down.isDown)
+            (keys.right.isDown && keys.left.isDown)
+            || (keys.up.isDown && keys.down.isDown)
         ) {
             this._sprite.anims.play('idle', true);
             return;
@@ -69,53 +91,29 @@ export default class AbstractSense {
 
 
         // Play animations
-        if (
-            this._cursors.right.isDown
-            || this._keys.D.isDown
-        ) {
+        if (keys.right.isDown) {
             this._sprite.anims.play('walkRight', true);
-        } else if (
-            this._cursors.left.isDown
-            || this._keys.A.isDown
-        ) {
+        } else if (keys.left.isDown) {
             this._sprite.anims.play('walkLeft', true);
-        } else if (
-            this._cursors.down.isDown
-            || this._keys.S.isDown
-        ) {
+        } else if (keys.down.isDown) {
             this._sprite.anims.play('walkFront', true);
-        } else if (
-            this._cursors.up.isDown
-            || this._keys.W.isDown
-        ) {
+        } else if (keys.up.isDown) {
             this._sprite.anims.play('walkBack', true);
         } else {
             this._sprite.anims.play('idle', true);
         }
 
         // Move the player
-        if (
-            this._cursors.right.isDown
-            || this._keys.D.isDown
-        ) {
+        if (keys.right.isDown) {
             this._sprite.setVelocityX(SenseConfig.PLAYER_SPEED);
         }
-        if (
-            this._cursors.left.isDown
-            || this._keys.A.isDown
-        ) {
+        if (keys.left.isDown) {
             this._sprite.setVelocityX(-SenseConfig.PLAYER_SPEED);
         }
-        if (
-            this._cursors.down.isDown
-            || this._keys.S.isDown
-        ) {
+        if (keys.down.isDown) {
             this._sprite.setVelocityY(SenseConfig.PLAYER_SPEED);
         }
-        if (
-            this._cursors.up.isDown
-            || this._keys.W.isDown
-        ) {
+        if (keys.up.isDown) {
             this._sprite.setVelocityY(-SenseConfig.PLAYER_SPEED);
         }
     }
