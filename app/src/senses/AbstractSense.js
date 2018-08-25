@@ -100,11 +100,11 @@ export default class AbstractSense
                 ? SenseConfig.AZERTY
                 : SenseConfig.QWERTY;
 
-            // Prevent multiple hit
+            // Prevent multiple hit at once
             this._canChangeKeyMode = false;
             setTimeout(() => {
                 this._canChangeKeyMode = true
-            }, 100);
+            }, 200);
         }
     }
 
@@ -156,18 +156,20 @@ export default class AbstractSense
 
         // QWERTY
         this._keys[SenseConfig.QWERTY] = {
-            up    : keyW,
-            down  : keyS,
-            left  : keyA,
-            right : keyD,
+            up     : keyW,
+            down   : keyS,
+            left   : keyA,
+            right  : keyD,
+            attack : keyQ,
         };
 
         // AZERTY
         this._keys[SenseConfig.AZERTY] = {
-            up    : keyZ,
-            down  : keyS,
-            left  : keyQ,
-            right : keyD,
+            up     : keyZ,
+            down   : keyS,
+            left   : keyQ,
+            right  : keyD,
+            attack : keyA,
         };
 
         // Switch keys mode
