@@ -23,7 +23,6 @@ export default class Game extends AbstractScene
         super({'key' : 'Game'});
         this._sense     = null;
         this._labyrinth = null;
-        this._cursors   = null;
         this._player    = null;
         this._layers    = {};
     }
@@ -70,13 +69,11 @@ export default class Game extends AbstractScene
         this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
         this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
 
-        this._cursors = this.input.keyboard.createCursorKeys();
-
         // Player
-        this._player  = this._sense.create();
+        this._sense.create();
 
         // Camera configuration
-        this.cameras.main.startFollow(this._player);
+        this.cameras.main.startFollow(this._sense.sprite);
         this.cameras.main.setDeadzone(
             Config.width * LabyrinthConfig.DEADZONE_RATIO,
             Config.height * LabyrinthConfig.DEADZONE_RATIO
@@ -87,46 +84,7 @@ export default class Game extends AbstractScene
      * The update function
      */
     update() {
-        // Reset the player velocity
-        this._player.setVelocityX(0);
-        this._player.setVelocityY(0);
-
-        // Prevent opposite direction conflicts
-        if (
-            (this._cursors.right.isDown && this._cursors.left.isDown)
-            || (this._cursors.up.isDown && this._cursors.down.isDown)
-        ) {
-            this._player.anims.play('idle', true);
-            return;
-        }
-
-
-        // Play animations
-        if (this._cursors.right.isDown) {
-            this._player.anims.play('walkRight', true);
-        } else if (this._cursors.left.isDown) {
-            this._player.anims.play('walkLeft', true);
-        } else if (this._cursors.down.isDown) {
-            this._player.anims.play('walkFront', true);
-        } else if (this._cursors.up.isDown) {
-            this._player.anims.play('walkBack', true);
-        } else {
-            this._player.anims.play('idle', true);
-        }
-
-        // Move the player
-        if (this._cursors.right.isDown) {
-            this._player.setVelocityX(SenseConfig.PLAYER_SPEED);
-        }
-        if (this._cursors.left.isDown) {
-            this._player.setVelocityX(-SenseConfig.PLAYER_SPEED);
-        }
-        if (this._cursors.down.isDown) {
-            this._player.setVelocityY(SenseConfig.PLAYER_SPEED);
-        }
-        if (this._cursors.up.isDown) {
-            this._player.setVelocityY(-SenseConfig.PLAYER_SPEED);
-        }
+        this._sense.update();
     }
 
     /**
