@@ -38,10 +38,12 @@ export default class SlashFront extends AbstractAnimation
                 {key : 'slashFront5', frame : null},
                 {key : 'slashFront6', frame : null},
                 {key : 'slashFront7', frame : null},
+                {key : 'slashFront8', frame : null}, // repeat the last frame for a more realistic movement
+                {key : 'slashFront8', frame : null},
+                {key : 'slashFront8', frame : null},
                 {key : 'slashFront8', frame : null},
             ],
-            frameRate : SenseConfig.SLASH_FRAME_RATE,
-            repeat    : -1
+            frameRate : SenseConfig.SLASH_FRAME_RATE
         });
     }
 }

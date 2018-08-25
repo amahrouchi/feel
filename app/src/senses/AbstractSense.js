@@ -12,11 +12,15 @@ export default class AbstractSense
      * @param {AbstractScene} scene
      */
     constructor(scene) {
-        this._scene            = scene;
-        this._sprite           = null;
-        this._keys             = {};
-        this._keyMode          = SenseConfig.QWERTY;
+        this._scene   = scene;
+        this._sprite  = null;
+        this._keys    = {};
+        this._keyMode = SenseConfig.QWERTY;
+
+        // States
         this._canChangeKeyMode = true;
+        this._isAttacking      = false;
+        this._direction        = 'stop';
     }
 
     /**
@@ -44,6 +48,11 @@ export default class AbstractSense
 
         // Create keys
         this._createKeys();
+
+        // End of attack animation
+        this._sprite.on('animationcomplete', (animation, frame) => {
+            this._endAttack(animation, frame);
+        });
     }
 
     /**
@@ -52,11 +61,17 @@ export default class AbstractSense
      */
     update() {
 
+        // Prepare the keys to use
         let keys = this._keys[this._keyMode];
 
         // Reset the player velocity
         this._sprite.setVelocityX(0);
         this._sprite.setVelocityY(0);
+        this._direction = 'stop';
+
+        if (this._isAttacking) {
+            return;
+        }
 
         // Prevent opposite direction conflicts
         if (
@@ -70,12 +85,16 @@ export default class AbstractSense
         // Play animations
         if (keys.right.isDown) {
             this._sprite.anims.play('walkRight', true);
+            this._direction = 'right';
         } else if (keys.left.isDown) {
             this._sprite.anims.play('walkLeft', true);
+            this._direction = 'left';
         } else if (keys.down.isDown) {
             this._sprite.anims.play('walkFront', true);
+            this._direction = 'down';
         } else if (keys.up.isDown) {
             this._sprite.anims.play('walkBack', true);
+            this._direction = 'up';
         } else {
             this._sprite.anims.play('idle', true);
         }
@@ -105,6 +124,16 @@ export default class AbstractSense
             setTimeout(() => {
                 this._canChangeKeyMode = true
             }, 200);
+        }
+
+        //Attack
+        if (keys.attack.isDown) {
+
+            if (this._direction === 'down' || this._direction === 'stop') {
+                this._isAttacking = true;
+                this._sprite.anims.play('slashFront', true);
+            }
+
         }
     }
 
@@ -174,5 +203,17 @@ export default class AbstractSense
 
         // Switch keys mode
         this._keys.switch = keyK;
+    }
+
+    /**
+     * Resets the player attacking state after the animation
+     * @param animation
+     * @param frame
+     * @private
+     */
+    _endAttack(animation, frame) {
+        if (animation.key === 'slashFront' && frame.isLast) {
+            this._isAttacking = false;
+        }
     }
 }
