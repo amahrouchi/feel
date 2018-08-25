@@ -1,4 +1,6 @@
-- Déplacement avec WASD/ZQSD
+- Probleme avec l'attaque en diagonale vers la gauche (reset soft le dernier commit)
+    - on passe dans le case else avec le log IDLE
+- Ajouter le bouton E pour les attaques de base (ou alors attaque sur le click gauche)
 - Attaque : animation + control
     Les mouvements du joueur doivent etre stoppé pendant l'animation
 - Améliorer l'allure du labyrinthe

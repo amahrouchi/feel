@@ -67,7 +67,6 @@ export default class AbstractSense
         // Reset the player velocity
         this._sprite.setVelocityX(0);
         this._sprite.setVelocityY(0);
-        this._direction = 'stop';
 
         if (this._isAttacking) {
             return;
@@ -97,6 +96,7 @@ export default class AbstractSense
             this._direction = 'up';
         } else {
             this._sprite.anims.play('idle', true);
+            this._direction = 'stop';
         }
 
         // Move the player
@@ -122,19 +122,35 @@ export default class AbstractSense
             // Prevent multiple hit at once
             this._canChangeKeyMode = false;
             setTimeout(() => {
-                this._canChangeKeyMode = true
+                this._canChangeKeyMode = true;
             }, 200);
         }
 
         //Attack
-        if (keys.attack.isDown) {
+        this._scene.input.on('pointerdown', pointer => {
 
-            if (this._direction === 'down' || this._direction === 'stop') {
                 this._isAttacking = true;
-                this._sprite.anims.play('slashDown', true);
-            }
 
-        }
+                switch (this._direction) {
+                    case 'down':
+                    case 'stop':
+                        this._sprite.anims.play('slashDown', true);
+                        break;
+
+                    case 'up':
+                        this._sprite.anims.play('slashUp', true);
+                        break;
+
+                    case 'left':
+                        this._sprite.anims.play('slashLeft', true);
+                        break;
+
+                    case 'right':
+                        this._sprite.anims.play('slashRight', true);
+                        break;
+                }
+
+        });
     }
 
     /**
@@ -212,7 +228,7 @@ export default class AbstractSense
      * @private
      */
     _endAttack(animation, frame) {
-        if (animation.key === 'slashDown' && frame.isLast) {
+        if (animation.key.indexOf('slash') === 0 && frame.isLast) {
             this._isAttacking = false;
         }
     }
