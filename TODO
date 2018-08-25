@@ -1,4 +1,4 @@
-- Factoriser la ceration du joueur à la maniere du tuto MatterJS
+- Factoriser la creation du joueur à la maniere du tuto MatterJS
     fonction de creation et d'update dans un classe dédié
 - Attaque : animation + control
     Les mouvements du joueur doivent etre stoppé pendant l'animation
