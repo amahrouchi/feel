@@ -12,10 +12,11 @@ export default class AbstractSense
      * @param {AbstractScene} scene
      */
     constructor(scene) {
-        this._scene   = scene;
-        this._sprite  = null;
-        this._keys    = {};
-        this._keyMode = 'qwerty';
+        this._scene            = scene;
+        this._sprite           = null;
+        this._keys             = {};
+        this._keyMode          = SenseConfig.QWERTY;
+        this._canChangeKeyMode = true;
     }
 
     /**
@@ -41,18 +42,17 @@ export default class AbstractSense
         this._sprite.setCollideWorldBounds(true);
         this._scene.physics.add.collider(this._scene._layers.wallsLayer, this._sprite);
 
-        // Create the cursors
-        this._cursors = this._scene.input.keyboard.createCursorKeys();
-        let keyW      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-            keyA      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-            keyS      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-            keyD      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            keyZ      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
-            keyQ      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            keyK      = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+        // Create keys
+        let keyW = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            keyA = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            keyS = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            keyD = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            keyZ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
+            keyQ = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            keyK = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 
         // QWERTY
-        this._keys.qwerty = {
+        this._keys[SenseConfig.QWERTY] = {
             up    : keyW,
             down  : keyS,
             left  : keyA,
@@ -60,12 +60,14 @@ export default class AbstractSense
         };
 
         // AZERTY
-        this._keys.azerty = {
+        this._keys[SenseConfig.AZERTY] = {
             up    : keyZ,
             down  : keyS,
             left  : keyQ,
             right : keyD,
         };
+
+        this._keys.switch = keyK;
     }
 
     /**
@@ -88,7 +90,6 @@ export default class AbstractSense
             this._sprite.anims.play('idle', true);
             return;
         }
-
 
         // Play animations
         if (keys.right.isDown) {
@@ -115,6 +116,19 @@ export default class AbstractSense
         }
         if (keys.up.isDown) {
             this._sprite.setVelocityY(-SenseConfig.PLAYER_SPEED);
+        }
+
+        // Change QWERTY/AZERTY
+        if (this._canChangeKeyMode && this._keys.switch.isDown) {
+            this._keyMode = this._keyMode === SenseConfig.QWERTY
+                ? SenseConfig.AZERTY
+                : SenseConfig.QWERTY;
+
+            // Prevent multiple hit
+            this._canChangeKeyMode = false;
+            setTimeout(() => {
+                this._canChangeKeyMode = true
+            }, 100);
         }
     }
 

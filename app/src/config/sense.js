@@ -18,4 +18,8 @@ export default {
     // Animation config
     WALK_FRAME_RATE : 50,
     IDLE_FRAME_RATE : 18,
+
+    // Keyboard configurations
+    QWERTY : 'qwerty',
+    AZERTY : 'azerty',
 }
