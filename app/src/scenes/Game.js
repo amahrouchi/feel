@@ -11,7 +11,7 @@ import LabyrinthConfig from "../config/labyrinth";
 import Config from '../config'
 
 /**
- * Character selection scene
+ * Game scene
  */
 export default class Game extends AbstractScene
 {
@@ -23,7 +23,6 @@ export default class Game extends AbstractScene
         super({'key' : 'Game'});
         this._sense     = null;
         this._labyrinth = null;
-        this._player    = null;
         this._layers    = {};
     }
 
@@ -55,6 +54,7 @@ export default class Game extends AbstractScene
         // Get selected sense
         this._sense = this._createSense(data.sense);
 
+        // Create map layers
         let map                  = this.add.tilemap('forest_json');
         let groundTiles          = map.addTilesetImage('tiles');
         this._layers.groundLayer = map.createStaticLayer('Ground', groundTiles, 0, 0);
@@ -69,7 +69,7 @@ export default class Game extends AbstractScene
         this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
         this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
 
-        // Player
+        // Create the player
         this._sense.create();
 
         // Camera configuration
