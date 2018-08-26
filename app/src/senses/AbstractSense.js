@@ -127,30 +127,7 @@ export default class AbstractSense
         }
 
         //Attack
-        this._scene.input.on('pointerdown', pointer => {
-
-                this._isAttacking = true;
-
-                switch (this._direction) {
-                    case 'down':
-                    case 'stop':
-                        this._sprite.anims.play('slashDown', true);
-                        break;
-
-                    case 'up':
-                        this._sprite.anims.play('slashUp', true);
-                        break;
-
-                    case 'left':
-                        this._sprite.anims.play('slashLeft', true);
-                        break;
-
-                    case 'right':
-                        this._sprite.anims.play('slashRight', true);
-                        break;
-                }
-
-        });
+        this._bindAttack();
     }
 
     /**
@@ -229,5 +206,35 @@ export default class AbstractSense
         if (animation.key.indexOf('slash') === 0 && frame.isLast) {
             this._isAttacking = false;
         }
+    }
+
+    /**
+     * Binds the attack to the left click
+     * @private
+     */
+    _bindAttack() {
+        this._scene.input.on('pointerdown', pointer => {
+
+            this._isAttacking = true;
+
+            switch (this._direction) {
+                case 'down':
+                case 'stop':
+                    this._sprite.anims.play('slashDown', true);
+                    break;
+
+                case 'up':
+                    this._sprite.anims.play('slashUp', true);
+                    break;
+
+                case 'left':
+                    this._sprite.anims.play('slashLeft', true);
+                    break;
+
+                case 'right':
+                    this._sprite.anims.play('slashRight', true);
+                    break;
+            }
+        });
     }
 }
