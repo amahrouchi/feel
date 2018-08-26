@@ -205,7 +205,6 @@ export default class AbstractSense
             down   : keyS,
             left   : keyA,
             right  : keyD,
-            attack : keyQ,
         };
 
         // AZERTY
@@ -214,7 +213,6 @@ export default class AbstractSense
             down   : keyS,
             left   : keyQ,
             right  : keyD,
-            attack : keyA,
         };
 
         // Switch keys mode
