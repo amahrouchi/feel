@@ -66,19 +66,20 @@ export default class Labyrinth {
     _generateTilemapJSON(size) {
 
         // Double the size of the map
-        let doubledSize = size * LabyrinthConfig.MAP_SIZE_RATIO;
+        let realSize = size * LabyrinthConfig.MAP_SIZE_RATIO;
 
         // Inits the tilemap JSON
-        let tilemap = this._initTilemapJSON(doubledSize);
+        let tilemap = this._initTilemapJSON(realSize);
 
         // Init layers data
         let wallMatrix   = [];
         let groundMatrix = [];
-        for (let i = 0; i < doubledSize; i++) {
-            let groundLine = Array(doubledSize).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
+        for (let i = 0; i < realSize; i++) {
+
+            let groundLine = Array(realSize).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
             groundMatrix.push(groundLine);
 
-            let wallsLine = Array(doubledSize).fill(0, 0);
+            let wallsLine = Array(realSize).fill(0, 0);
             wallMatrix.push(wallsLine);
         }
 

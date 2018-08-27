@@ -33,13 +33,13 @@ export default {
      * The ground tile index in the forest tileset
      * @var {int}
      */
-    GROUND_TILE_INDEX : 65,
+    GROUND_TILE_INDEX : 1250,
 
     /**
      * The walls tile index in the forest tileset
      * @var {int}
      */
-    WALL_TILE_INDEX : 26,
+    WALL_TILE_INDEX : 578,
 
     /**
      * The tiles size in the forest tileset
@@ -79,8 +79,8 @@ export default {
             {
                 "columns"     : 8,
                 "firstgid"    : 1,
-                "image"       : "forest.png",
-                "imageheight" : 608,
+                "image"       : "bosquet.png",
+                "imageheight" : 6000,
                 "imagewidth"  : 256,
                 "margin"      : 0,
                 "name"        : "tiles",
