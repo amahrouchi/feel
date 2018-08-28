@@ -84,6 +84,7 @@ export default class Labyrinth {
         }
 
         // Generate walls positions
+        // TODO: change this algorithm to use the new tiles to build the labyrinth walls
         let y = 0;
         for (let line of this._matrix) {
             let x = 0;
