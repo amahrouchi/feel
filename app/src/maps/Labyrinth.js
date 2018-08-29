@@ -90,13 +90,82 @@ export default class Labyrinth {
             let x = 0;
             for (let val of line) {
 
+                // Flags
+                let topIsPath   = typeof(this._matrix[y - 1]) !== 'undefined' && typeof(this._matrix[y - 1][x]) !== 'undefined' && this._matrix[y - 1][x] === 1;
+                let downIsPath  = typeof(this._matrix[y + 1]) !== 'undefined' && typeof(this._matrix[y + 1][x]) !== 'undefined' && this._matrix[y + 1][x] === 1;
+                let leftIsPath  = typeof(this._matrix[y]) !== 'undefined' && typeof(this._matrix[y][x - 1]) !== 'undefined' && this._matrix[y][x - 1] === 1;
+                let rightIsPath = typeof(this._matrix[y]) !== 'undefined' && typeof(this._matrix[y][x + 1]) !== 'undefined' && this._matrix[y][x + 1] === 1;
+
+
                 if (val === 0) {
                     let currX = x * LabyrinthConfig.MAP_SIZE_RATIO;
                     let currY = y * LabyrinthConfig.MAP_SIZE_RATIO;
 
                     for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO; j++) {
                         for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO; k++) {
-                            wallMatrix[currY + k][currX + j] = LabyrinthConfig.WALL_TILE_INDEX;
+                            // wallMatrix[currY + k][currX + j] = LabyrinthConfig.WALL_TILE_INDEX;
+
+                            let xTilePosition = currX + j;
+                            let yTilePosition = currY + k;
+                            let lastIndex     = LabyrinthConfig.MAP_SIZE_RATIO - 1;
+
+                            // Corners
+                            wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.inner;
+
+                            if (topIsPath) {
+                                if (k === 0) {
+                                    // let secondLineAvailable = typeof(wallMatrix[yTilePosition + 1]) !== 'undefined' && typeof(wallMatrix[yTilePosition + 1][xTilePosition]) !== 'undefined';
+
+                                    wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_mid;
+                                    // if (secondLineAvailable) wallMatrix[yTilePosition + 1][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up2_mid;
+
+                                    if (leftIsPath && j === 0) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_left;
+                                        // if (secondLineAvailable) wallMatrix[yTilePosition + 1][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up2_left;
+                                    } else if (rightIsPath && j === lastIndex) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_right;
+                                        // if (secondLineAvailable) wallMatrix[yTilePosition + 1][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up2_right;
+                                    }
+                                }
+                            }
+
+                            if (downIsPath) {
+                                if (k === lastIndex) {
+                                    wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.down2_mid;
+                                    if (leftIsPath && j === 0) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.down2_left;
+                                    } else if (rightIsPath && j === lastIndex) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.down2_right;
+                                    }
+                                }
+                            }
+
+                            if (leftIsPath) {
+                                if (j === 0) {
+                                    if (wallMatrix[yTilePosition][xTilePosition] === LabyrinthConfig.WALL_TILES.bosquet.inner) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.mid_left;
+                                    }
+                                }
+                            }
+
+                            if (rightIsPath) {
+                                if (j === lastIndex) {
+                                    if (wallMatrix[yTilePosition][xTilePosition] === LabyrinthConfig.WALL_TILES.bosquet.inner) {
+                                        wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.mid_right;
+                                    }
+                                }
+                            }
+
+                            // if (xTilePosition === 0) {
+                            //     if (yTilePosition === 0 && topIsPath && leftIsPath) {
+                            //         wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_left;
+                            //     } else if (yTilePosition === lastIndex && topIsPath && leftIsPath) {
+                            //         wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_right;
+                            //     } else if (topIsPath) {
+                            //         wallMatrix[yTilePosition][xTilePosition] = LabyrinthConfig.WALL_TILES.bosquet.up_mid;
+                            //     }
+                            // }
+
                         }
                     }
                 }

@@ -43,6 +43,8 @@ export default {
 
     WALL_TILES : {
         bosquet : {
+            inner : 550,
+
             up_left  : 569,
             up_mid   : 570,
             up_right : 571,
