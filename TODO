@@ -1,3 +1,20 @@
+Amélioration de l'allure de labyrinthe
+- Utiliser 2 layers pour les murs
+  - inférieur : tuile d'obstacles unique en random
+    - si c'est tropcharger visuellement, il faudra peut etrer ajouter le 0 (pondéré ou pas) dans ce set de tuiles randoms
+  - supérieur : un pattern du tileset représentant un bosquet
+    - Changer les ratio X/Y pour qu'il corresponde à la taille du pattern bosquet selectionné
+    - Utiliser tous les patterns de bosquets du tileset
+    - Adapter leur taille pour correspondre au plus grand en rajoutant des 0 sur les contours
+    - Équilibre visuellement ces paddings, qui seront de toute facon rempli par les tuiles randoms de la couche inférieures
+    - De cette maniere, on génère une foret random avec des patterns de bosquets qui s'alterne
+    - YEAH !!!
+
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
 - Améliorer l'allure du labyrinthe
     il y a un décalage dans les sprite du sol
     Faire de plus joli mur (voir la sprite sheet, ou la changer ??)
