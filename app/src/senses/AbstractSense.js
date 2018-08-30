@@ -155,11 +155,12 @@ export default class AbstractSense
             }
         }
 
-        let cellSizeInPixels = LabyrinthConfig.TILE_SIZE * LabyrinthConfig.MAP_SIZE_RATIO;
+        let cellSizeInPixels_X = LabyrinthConfig.TILE_SIZE * LabyrinthConfig.MAP_SIZE_RATIO_X;
+        let cellSizeInPixels_Y = LabyrinthConfig.TILE_SIZE * LabyrinthConfig.MAP_SIZE_RATIO_Y;
 
         return {
-            x : x * cellSizeInPixels + cellSizeInPixels / 2,
-            y : y * cellSizeInPixels + cellSizeInPixels / 2,
+            x : x * cellSizeInPixels_X + cellSizeInPixels_X / 2,
+            y : y * cellSizeInPixels_Y + cellSizeInPixels_Y / 2,
         };
     }
 

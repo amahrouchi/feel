@@ -66,36 +66,36 @@ export default class Labyrinth {
     _generateTilemapJSON(size) {
 
         // Double the size of the map
-        let realSize = size * LabyrinthConfig.MAP_SIZE_RATIO;
+        let realSizeX = size * LabyrinthConfig.MAP_SIZE_RATIO_X;
+        let realSizeY = size * LabyrinthConfig.MAP_SIZE_RATIO_Y;
 
         // Inits the tilemap JSON
-        let tilemap = this._initTilemapJSON(realSize);
+        let tilemap = this._initTilemapJSON(realSizeX, realSizeY);
 
         // Init layers data
         let wallMatrix   = [];
         let groundMatrix = [];
-        for (let i = 0; i < realSize; i++) {
+        for (let i = 0; i < realSizeY; i++) {
 
-            let groundLine = Array(realSize).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
+            let groundLine = Array(realSizeX).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
             groundMatrix.push(groundLine);
 
-            let wallsLine = Array(realSize).fill(0, 0);
+            let wallsLine = Array(realSizeX).fill(0, 0);
             wallMatrix.push(wallsLine);
         }
 
         // Generate walls positions
-        // TODO: change this algorithm to use the new tiles to build the labyrinth walls
         let y = 0;
         for (let line of this._matrix) {
             let x = 0;
             for (let val of line) {
 
                 if (val === 0) {
-                    let currX = x * LabyrinthConfig.MAP_SIZE_RATIO;
-                    let currY = y * LabyrinthConfig.MAP_SIZE_RATIO;
+                    let currX = x * LabyrinthConfig.MAP_SIZE_RATIO_X;
+                    let currY = y * LabyrinthConfig.MAP_SIZE_RATIO_Y;
 
-                    for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO; j++) {
-                        for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO; k++) {
+                    for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO_X; j++) {
+                        for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO_Y; k++) {
                             wallMatrix[currY + k][currX + j] = LabyrinthConfig.WALL_TILE_INDEX;
                         }
                     }
@@ -114,21 +114,22 @@ export default class Labyrinth {
 
     /**
      * Initializes the tilemap JSON
-     * @param {int} size
+     * @param {int} sizeX
+     * @param {int} sizeY
      * @return {{}}
      * @private
      */
-    _initTilemapJSON(size) {
+    _initTilemapJSON(sizeX, sizeY) {
         let tilemap                    = LabyrinthConfig.defaultJson;
-        tilemap.width                  = size;
-        tilemap.height                 = size;
+        tilemap.width                  = sizeX;
+        tilemap.height                 = sizeY;
         tilemap.tilewidth              = LabyrinthConfig.TILE_SIZE;
         tilemap.tileheight             = LabyrinthConfig.TILE_SIZE;
         tilemap.tilesets[0].tilewidth  = LabyrinthConfig.TILE_SIZE;
         tilemap.tilesets[0].tileheight = LabyrinthConfig.TILE_SIZE;
 
-        let groundLayer = this._createLayer('Ground', tilemap.layers[0], size);
-        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], size);
+        let groundLayer = this._createLayer('Ground', tilemap.layers[0], sizeX, sizeY);
+        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], sizeX, sizeY);
 
         tilemap.layers = [];
         tilemap.layers.push(groundLayer);
@@ -141,15 +142,16 @@ export default class Labyrinth {
      * Creates a layer for the Tiled tilemap
      * @param {string} name
      * @param {{}} defaultLayer
-     * @param {int} size
+     * @param {int} sizeX
+     * @param {int} sizeY
      * @returns {*}
      * @private
      */
-    _createLayer(name, defaultLayer, size) {
+    _createLayer(name, defaultLayer, sizeX, sizeY) {
         let layer    = Object.assign({}, defaultLayer);
         layer.name   = name;
-        layer.width  = size;
-        layer.height = size;
+        layer.width  = sizeX;
+        layer.height = sizeY;
         layer.data   = [];
 
         return layer;
