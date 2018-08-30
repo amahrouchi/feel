@@ -41,29 +41,6 @@ export default {
      */
     WALL_TILE_INDEX : 578,
 
-    WALL_TILES : {
-        bosquet : {
-            up_left  : 569,
-            up_mid   : 570,
-            up_right : 571,
-
-            up2_left  : 577,
-            up2_mid   : 578,
-            up2_right : 591,
-
-            mid_left  : 585,
-            mid_right : 587,
-
-            down_left  : 593,
-            down_mid   : 570,
-            down_right : 595,
-
-            down2_left  : 601,
-            down2_mid   : 578,
-            down2_right : 603,
-        }
-    },
-
     /**
      * The tiles size in the forest tileset
      * @var {int}
