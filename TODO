@@ -7,6 +7,8 @@ Amélioration de l'allure de labyrinthe
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
+- README.md
+  - Décrire le build (commandes docker npm webpack...)
 - Créer une mini carte avec "war fog"
 - Créer un menu de pause
 - Créer des ennemis
