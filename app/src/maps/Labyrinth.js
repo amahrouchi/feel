@@ -94,9 +94,12 @@ export default class Labyrinth {
                     let currX = x * LabyrinthConfig.MAP_SIZE_RATIO_X;
                     let currY = y * LabyrinthConfig.MAP_SIZE_RATIO_Y;
 
+                    // Get a random wall patterns
+                    let pattern = LabyrinthConfig.WALL_TILES_PATTERNS[Math.floor(Math.random()*LabyrinthConfig.WALL_TILES_PATTERNS.length)];
+
                     for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO_X; j++) {
                         for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO_Y; k++) {
-                            wallMatrix[currY + k][currX + j] = LabyrinthConfig.WALL_TILE_INDEX;
+                            wallMatrix[currY + k][currX + j] = pattern[k][j];
                         }
                     }
                 }

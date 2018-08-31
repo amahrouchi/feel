@@ -42,6 +42,12 @@ export default {
     WALL_TILE_INDEX : 578,
 
     WALL_TILES_PATTERNS : [
+        /*
+         * The size of the matrices here has to be
+         * MAP_SIZE_RATIO_X * MAP_SIZE_RATIO_Y
+         * 8*8 at the moment I am writing
+         */
+
         // Bosquet 1
         [
             [329, 330, 331, 332, 333, 0, 0, 0],
