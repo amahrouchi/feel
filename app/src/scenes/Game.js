@@ -59,6 +59,7 @@ export default class Game extends AbstractScene {
         this._layers.groundLayer         = map.createStaticLayer('Ground', groundTiles, 0, 0);
         this._layers.wallsCollisionLayer = map.createDynamicLayer('WallsCollision', groundTiles, 0, 0);
         this._layers.wallsLayer          = map.createDynamicLayer('Walls', groundTiles, 0, 0);
+        this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
         this._layers.wallsCollisionLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
         // World size

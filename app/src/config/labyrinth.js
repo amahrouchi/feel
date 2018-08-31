@@ -113,7 +113,7 @@ export default {
              * Tiles to collide with for the walls
              * @var {Array}
              */
-            WALL_COLLISION_TILES : [29, 35, 36, 37],
+            WALL_COLLISION_TILES : [29, 35, 36, 37, 0],
 
             /**
              * Forest patterns

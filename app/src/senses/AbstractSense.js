@@ -45,6 +45,7 @@ export default class AbstractSense
         this._sprite.body.setOffset(SenseConfig.PLAYER_HITBOX_OFFSET_X, SenseConfig.PLAYER_HITBOX_OFFSET_Y);
         this._sprite.setCollideWorldBounds(true);
         this._scene.physics.add.collider(this._scene._layers.wallsCollisionLayer, this._sprite);
+        this._scene.physics.add.collider(this._scene._layers.wallsLayer, this._sprite);
 
         // Create keys
         this._createKeys();
