@@ -1,4 +1,5 @@
 Amélioration de l'allure de labyrinthe
+- ajouter des touffe d'herbe sur la partie "chemin du labyrinthe"
 - augmenter la vitesse du joueur
 - augmenter la taille du joueur
 
@@ -20,4 +21,4 @@ Amélioration de l'allure de labyrinthe
 
 @see Phaser
 - Tilemaps
-- Camera
+- Cameras
