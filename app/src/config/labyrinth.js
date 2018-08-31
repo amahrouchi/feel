@@ -48,16 +48,16 @@ export default {
     TILE_SIZE : 32,
 
     /**
-     * The map size X ratio
+     * The map size  X ratio
      * @var {int}
      */
-    MAP_SIZE_RATIO_X : 5,
+    MAP_SIZE_RATIO_X : 8,
 
     /**
      * The map size Y ratio
      * @var {int}
      */
-    MAP_SIZE_RATIO_Y : 5,
+    MAP_SIZE_RATIO_Y : 8    ,
 
     /**
      * The ratio for the deadzone of the camera
