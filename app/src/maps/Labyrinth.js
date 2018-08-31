@@ -73,12 +73,16 @@ export default class Labyrinth {
         let tilemap = this._initTilemapJSON(realSizeX, realSizeY);
 
         // Init layers data
-        let wallMatrix   = [];
-        let groundMatrix = [];
+        let wallMatrix          = [];
+        let wallCollisionMatrix = [];
+        let groundMatrix        = [];
         for (let i = 0; i < realSizeY; i++) {
 
-            let groundLine = Array(realSizeX).fill(LabyrinthConfig.GROUND_TILE_INDEX, 0);
+            let groundLine = Array(realSizeX).fill(LabyrinthConfig.MAPS.BOSQUET.GROUND_TILE_INDEX, 0);
             groundMatrix.push(groundLine);
+
+            let wallsCollisionLine = Array(realSizeX).fill(0, 0);
+            wallCollisionMatrix.push(wallsCollisionLine);
 
             let wallsLine = Array(realSizeX).fill(0, 0);
             wallMatrix.push(wallsLine);
@@ -94,12 +98,19 @@ export default class Labyrinth {
                     let currX = x * LabyrinthConfig.MAP_SIZE_RATIO_X;
                     let currY = y * LabyrinthConfig.MAP_SIZE_RATIO_Y;
 
-                    // Get a random wall patterns
-                    let pattern = LabyrinthConfig.WALL_TILES_PATTERNS[Math.floor(Math.random()*LabyrinthConfig.WALL_TILES_PATTERNS.length)];
-
+                    // Walls collision
                     for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO_X; j++) {
                         for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO_Y; k++) {
-                            wallMatrix[currY + k][currX + j] = pattern[k][j];
+                            let randomCollisionTile = LabyrinthConfig.MAPS.BOSQUET.WALL_COLLISION_TILES[Math.floor(Math.random() * LabyrinthConfig.MAPS.BOSQUET.WALL_COLLISION_TILES.length)];
+                            wallCollisionMatrix[currY + k][currX + j] = randomCollisionTile;
+                        }
+                    }
+
+                    // Display random wall patterns
+                    let randomPattern = LabyrinthConfig.MAPS.BOSQUET.WALL_TILES_PATTERNS[Math.floor(Math.random() * LabyrinthConfig.MAPS.BOSQUET.WALL_TILES_PATTERNS.length)];
+                    for (let j = 0; j < LabyrinthConfig.MAP_SIZE_RATIO_X; j++) {
+                        for (let k = 0; k < LabyrinthConfig.MAP_SIZE_RATIO_Y; k++) {
+                            wallMatrix[currY + k][currX + j] = randomPattern[k][j];
                         }
                     }
                 }
@@ -110,7 +121,8 @@ export default class Labyrinth {
 
         // Flatten the layers data
         tilemap.layers[0].data = this._flattenMatrix(groundMatrix);
-        tilemap.layers[1].data = this._flattenMatrix(wallMatrix);
+        tilemap.layers[1].data = this._flattenMatrix(wallCollisionMatrix);
+        tilemap.layers[2].data = this._flattenMatrix(wallMatrix);
 
         return tilemap;
     }
@@ -131,11 +143,13 @@ export default class Labyrinth {
         tilemap.tilesets[0].tilewidth  = LabyrinthConfig.TILE_SIZE;
         tilemap.tilesets[0].tileheight = LabyrinthConfig.TILE_SIZE;
 
-        let groundLayer = this._createLayer('Ground', tilemap.layers[0], sizeX, sizeY);
-        let wallsLayer  = this._createLayer('Walls', tilemap.layers[0], sizeX, sizeY);
+        let groundLayer         = this._createLayer('Ground', tilemap.layers[0], sizeX, sizeY);
+        let wallsCollisionLayer = this._createLayer('WallsCollision', tilemap.layers[0], sizeX, sizeY);
+        let wallsLayer          = this._createLayer('Walls', tilemap.layers[0], sizeX, sizeY);
 
         tilemap.layers = [];
         tilemap.layers.push(groundLayer);
+        tilemap.layers.push(wallsCollisionLayer);
         tilemap.layers.push(wallsLayer);
 
         return tilemap;
