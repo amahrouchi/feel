@@ -54,13 +54,13 @@ export default class Game extends AbstractScene {
         this._sense = this._createSense(data.sense);
 
         // Create map layers
-        let map                          = this.add.tilemap('json_tilemap');
-        let groundTiles                  = map.addTilesetImage('tiles');
-        this._layers.groundLayer         = map.createStaticLayer('Ground', groundTiles, 0, 0);
-        this._layers.wallsCollisionLayer = map.createDynamicLayer('WallsCollision', groundTiles, 0, 0);
-        this._layers.wallsLayer          = map.createDynamicLayer('Walls', groundTiles, 0, 0);
+        let map                           = this.add.tilemap('json_tilemap');
+        let groundTiles                   = map.addTilesetImage('tiles');
+        this._layers.groundLayer          = map.createStaticLayer('Ground', groundTiles, 0, 0);
+        this._layers.wallsDecorationLayer = map.createDynamicLayer('WallsDecoration', groundTiles, 0, 0);
+        this._layers.wallsLayer           = map.createDynamicLayer('Walls', groundTiles, 0, 0);
         this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
-        this._layers.wallsCollisionLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
+        this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
         // World size
         let worldWidth  = map.widthInPixels,
