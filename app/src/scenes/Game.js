@@ -62,6 +62,9 @@ export default class Game extends AbstractScene {
         this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
         this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
+        // Draw the minimap
+        this._labyrinth.minimap();
+
         // World size
         let worldWidth  = map.widthInPixels,
             worldHeight = map.heightInPixels;

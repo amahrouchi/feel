@@ -1,4 +1,5 @@
 import LabyrinthConfig from '../config/labyrinth';
+import Minimap from "./Minimap";
 
 /**
  * Class handling the generation of the labyrinth matrix
@@ -40,6 +41,15 @@ export default class Labyrinth {
         this._matrix = matrix;
 
         return this._generateTilemapJSON(size);
+    }
+
+    /**
+     * Generates and display the minimap
+     * @return {void}
+     */
+    minimap () {
+        let map = new Minimap(this._matrix);
+        map.generate();
     }
 
     /**
