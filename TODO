@@ -1,7 +1,9 @@
-Amélioration de l'allure de labyrinthe
-- ajouter des touffe d'herbe sur la partie "chemin du labyrinthe"
-- augmenter la vitesse du joueur
-- augmenter la taille du joueur
+Minimap
+  - La carte en haut a gauche du monde
+  - Il faut qu'elle soit fixe par rapport à la camera
+  - Afficher la position du joueur
+  - Faire apparaitrer map au fur et àmesure du deplacement du joueur
+
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
