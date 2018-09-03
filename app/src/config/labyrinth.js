@@ -186,6 +186,16 @@ export default {
                 //     [0, 0, 0, 0, 0, 0, 0, 0],
                 // ]
             ],
-        }
+        },
+
+        // TODO: JSDoc
+        MINI_MAP : {
+            CELL_WIDTH  : 5,
+            CELL_HEIGHT : 5,
+            POSITION_X  : 50,
+            POSITION_Y  : 50,
+            PATH_COLOR  : '#FFFFFF',
+            WALLS_COLOR : '#000000',
+        },
     }
 }
