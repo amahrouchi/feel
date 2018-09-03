@@ -1,4 +1,5 @@
 export default {
+
     /**
      * The labyrinth width and height
      * @var {int}
@@ -225,13 +226,13 @@ export default {
              * Path color
              * @var {int}
              */
-            PATH_COLOR  : '#FFFFFF',
+            PATH_COLOR  : 0xffffff,
 
             /**
              * Walls color
              * @var {int}
              */
-            WALLS_COLOR : '#000000',
+            WALLS_COLOR : 0x000000,
         },
     }
 }
