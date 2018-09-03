@@ -101,6 +101,10 @@ export default {
 
     MAPS : {
 
+        /**
+         * Bosquet map configuration
+         * @var {{}}
+         */
         BOSQUET : {
 
             /**
@@ -188,13 +192,45 @@ export default {
             ],
         },
 
-        // TODO: JSDoc
+        /**
+         * Minimap configuration
+         * @var {{}}
+         */
         MINI_MAP : {
+            /**
+             * Cell width
+             * @var {int}
+             */
             CELL_WIDTH  : 5,
+
+            /**
+             * Cell height
+             * @var {int}
+             */
             CELL_HEIGHT : 5,
+
+            /**
+             * Map X position
+             * @var {int}
+             */
             POSITION_X  : 50,
+
+            /**
+             * Map Y position
+             * @var {int}
+             */
             POSITION_Y  : 50,
+
+            /**
+             * Path color
+             * @var {int}
+             */
             PATH_COLOR  : '#FFFFFF',
+
+            /**
+             * Walls color
+             * @var {int}
+             */
             WALLS_COLOR : '#000000',
         },
     }
