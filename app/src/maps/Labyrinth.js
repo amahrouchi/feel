@@ -8,9 +8,11 @@ export default class Labyrinth {
 
     /**
      * The Labyrinth class constructor
+     * @param {AbstractScene} scene
      */
-    constructor() {
-        this._matrix = null
+    constructor(scene) {
+        this._scene  = scene;
+        this._matrix = null;
     }
 
     /**
@@ -47,8 +49,8 @@ export default class Labyrinth {
      * Generates and display the minimap
      * @return {void}
      */
-    minimap () {
-        let map = new Minimap(this._matrix);
+    minimap() {
+        let map = new Minimap(this._scene, this._matrix);
         map.generate();
     }
 

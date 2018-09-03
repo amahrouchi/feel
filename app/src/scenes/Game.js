@@ -31,7 +31,7 @@ export default class Game extends AbstractScene {
     preload() {
 
         // Generate the labyrinth
-        this._labyrinth = new Labyrinth();
+        this._labyrinth = new Labyrinth(this);
         let tilemap     = this._labyrinth.generate(
             LabyrinthConfig.WIDTH,
             LabyrinthConfig.CENTER,
