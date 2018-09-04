@@ -41,9 +41,5 @@ export default class Minimap {
             }
             y++;
         }
-
-
     }
-
-
 }

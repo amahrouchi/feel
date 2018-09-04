@@ -65,6 +65,12 @@ export default class Game extends AbstractScene {
         // Draw the minimap
         this._labyrinth.minimap();
 
+        // Minimap as a second camera
+        // this.minimap = this.cameras.add(-(Config.width/2) + 50, -(Config.height/2) + 50, Config.width, Config.height).setZoom(0.02);
+        // this.minimap.setBackgroundColor(0x002244);
+        // this.minimap.scrollX = 1600;
+        // this.minimap.scrollY = 300;
+
         // World size
         let worldWidth  = map.widthInPixels,
             worldHeight = map.heightInPixels;
@@ -82,6 +88,8 @@ export default class Game extends AbstractScene {
             Config.width * LabyrinthConfig.DEADZONE_RATIO,
             Config.height * LabyrinthConfig.DEADZONE_RATIO
         );
+
+
     }
 
     /**
