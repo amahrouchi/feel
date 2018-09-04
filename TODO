@@ -9,6 +9,7 @@ Minimap
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
+- Supprimer l'attaque sur le click droit
 - README.md
   - Décrire le build (commandes docker npm webpack...)
 - Créer une mini carte avec "war fog"
