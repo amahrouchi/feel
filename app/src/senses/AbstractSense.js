@@ -40,6 +40,14 @@ export default class AbstractSense
     }
 
     /**
+     * Gets the user's position
+     * @return {{ratio: {x: null, y: null}}|*}
+     */
+    get position() {
+        return this._position;
+    }
+
+    /**
      * Creates the player in the scene
      * @return {void}
      */
@@ -139,8 +147,8 @@ export default class AbstractSense
         this._bindAttack();
 
         // Update user's position
-        this._position.ratio.x = Math.round(this._sprite.x * 10000 / this._scene.tilemap.widthInPixels) / 100;
-        this._position.ratio.y = Math.round(this._sprite.y * 10000 / this._scene.tilemap.heightInPixels) / 100;
+        this._position.ratio.x = Math.round(this._sprite.x * 10000 / this._scene.tilemap.widthInPixels) / 10000;
+        this._position.ratio.y = Math.round(this._sprite.y * 10000 / this._scene.tilemap.heightInPixels) / 10000;
     }
 
     /**
