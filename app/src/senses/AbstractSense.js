@@ -21,6 +21,14 @@ export default class AbstractSense
         this._canChangeKeyMode = true;
         this._isAttacking      = false;
         this._direction        = 'stop';
+
+        // User's position on the map
+        this._position = {
+            ratio : {
+                x : null,
+                y : null
+            }
+        };
     }
 
     /**
@@ -129,6 +137,10 @@ export default class AbstractSense
 
         //Attack
         this._bindAttack();
+
+        // Update user's position
+        this._position.ratio.x = Math.round(this._sprite.x * 10000 / this._scene.tilemap.widthInPixels) / 100;
+        this._position.ratio.y = Math.round(this._sprite.y * 10000 / this._scene.tilemap.heightInPixels) / 100;
     }
 
     /**

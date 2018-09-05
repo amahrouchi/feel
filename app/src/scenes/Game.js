@@ -23,6 +23,15 @@ export default class Game extends AbstractScene {
         this._sense     = null;
         this._labyrinth = null;
         this._layers    = {};
+        this._tilemap   = null;
+    }
+
+    /**
+     * The map getter
+     * @return {null}
+     */
+    get tilemap() {
+        return this._tilemap;
     }
 
     /**
@@ -54,26 +63,20 @@ export default class Game extends AbstractScene {
         this._sense = this._createSense(data.sense);
 
         // Create map layers
-        let map                           = this.add.tilemap('json_tilemap');
-        let groundTiles                   = map.addTilesetImage('tiles');
-        this._layers.groundLayer          = map.createStaticLayer('Ground', groundTiles, 0, 0);
-        this._layers.wallsDecorationLayer = map.createDynamicLayer('WallsDecoration', groundTiles, 0, 0);
-        this._layers.wallsLayer           = map.createDynamicLayer('Walls', groundTiles, 0, 0);
+        this._tilemap                     = this.add.tilemap('json_tilemap');
+        let groundTiles                   = this._tilemap.addTilesetImage('tiles');
+        this._layers.groundLayer          = this._tilemap.createStaticLayer('Ground', groundTiles, 0, 0);
+        this._layers.wallsDecorationLayer = this._tilemap.createDynamicLayer('WallsDecoration', groundTiles, 0, 0);
+        this._layers.wallsLayer           = this._tilemap.createDynamicLayer('Walls', groundTiles, 0, 0);
         this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
         this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
         // Draw the minimap
         this._labyrinth.minimap();
 
-        // Minimap as a second camera
-        // this.minimap = this.cameras.add(-(Config.width/2) + 50, -(Config.height/2) + 50, Config.width, Config.height).setZoom(0.02);
-        // this.minimap.setBackgroundColor(0x002244);
-        // this.minimap.scrollX = 1600;
-        // this.minimap.scrollY = 300;
-
         // World size
-        let worldWidth  = map.widthInPixels,
-            worldHeight = map.heightInPixels;
+        let worldWidth  = this._tilemap.widthInPixels,
+            worldHeight = this._tilemap.heightInPixels;
 
         // Set the boundaries of our game world
         this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
