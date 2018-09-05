@@ -233,6 +233,12 @@ export default {
              * @var {int}
              */
             WALLS_COLOR : 0x000000,
+
+            /**
+             * Player's color
+             * @var {int}
+             */
+            PLAYER_COLOR : 0xff0000,
         },
     }
 }
