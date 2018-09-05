@@ -1,15 +1,14 @@
 Minimap
-  - La carte en haut a gauche du monde
-  - Il faut qu'elle soit fixe par rapport à la camera
   - Afficher la position du joueur
-  - Faire apparaitrer map au fur et àmesure du deplacement du joueur
+    - récuperer la position du joueur dans la matrice
+    - la reporter sur la carte
+  - Faire apparaitre la map au fur et à mesure du deplacement du joueur
 
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
-- Supprimer l'attaque sur le click droit
 - README.md
   - Décrire le build (commandes docker npm webpack...)
 - Créer une mini carte avec "war fog"
