@@ -214,13 +214,13 @@ export default {
              * Map X position
              * @var {int}
              */
-            POSITION_X  : 50,
+            POSITION_X  : 10,
 
             /**
              * Map Y position
              * @var {int}
              */
-            POSITION_Y  : 50,
+            POSITION_Y  : 10,
 
             /**
              * Path color
