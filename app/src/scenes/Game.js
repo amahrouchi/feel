@@ -35,6 +35,14 @@ export default class Game extends AbstractScene {
     }
 
     /**
+     * Returns the player object
+     * @return {null}
+     */
+    get sense() {
+        return this._sense;
+    }
+
+    /**
      * The preload function
      */
     preload() {
@@ -71,8 +79,8 @@ export default class Game extends AbstractScene {
         this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
         this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
 
-        // Draw the minimap
-        this._labyrinth.minimap();
+        // Draw the drawMinimap
+        this._labyrinth.drawMinimap();
 
         // World size
         let worldWidth  = this._tilemap.widthInPixels,
@@ -100,6 +108,7 @@ export default class Game extends AbstractScene {
      */
     update() {
         this._sense.update();
+        this._labyrinth.minimap.update();
     }
 
     /**

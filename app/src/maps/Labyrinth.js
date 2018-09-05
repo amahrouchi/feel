@@ -13,6 +13,7 @@ export default class Labyrinth {
     constructor(scene) {
         this._scene  = scene;
         this._matrix = null;
+        this._minimap = null;
     }
 
     /**
@@ -22,6 +23,15 @@ export default class Labyrinth {
     get matrix() {
         return this._matrix;
     }
+
+    /**
+     * Gets the minimap object
+     * @return {Minimap}
+     */
+    get minimap() {
+        return this._minimap;
+    }
+
 
     /**
      * Generates a complex labyrinth
@@ -46,12 +56,12 @@ export default class Labyrinth {
     }
 
     /**
-     * Generates and display the minimap
+     * Generates and display the drawMinimap
      * @return {void}
      */
-    minimap() {
-        let map = new Minimap(this._scene, this._matrix);
-        map.generate();
+    drawMinimap() {
+        this._minimap = new Minimap(this._scene, this._matrix);
+        this._minimap.generate();
     }
 
     /**
