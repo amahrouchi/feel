@@ -10,6 +10,7 @@ Minimap
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
+- Réarranger le code si necessaire
 - README.md
   - Décrire le build (commandes docker npm webpack...)
 - Créer une mini carte avec "war fog"
