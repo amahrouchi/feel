@@ -217,6 +217,11 @@ export default class AbstractSense
     _bindAttack() {
         this._scene.input.on('pointerdown', pointer => {
 
+            // Disable right click
+            if (pointer.leftButtonDown() === 0) {
+                return;
+            }
+
             this._isAttacking = true;
 
             switch (this._direction) {
