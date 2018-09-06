@@ -239,6 +239,18 @@ export default {
              * @var {int}
              */
             PLAYER_COLOR : 0xff0000,
+
+            /**
+             * The player marker width
+             * @var {int}
+             */
+            MARKER_WIDTH : 3,
+
+            /**
+             * The player marker height
+             * @var {int}
+             */
+            MARKER_HEIGHT : 3,
         },
     }
 }

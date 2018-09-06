@@ -12,12 +12,9 @@ export default class Minimap {
      * @param {Array} matrix The matrix used to generate the map
      */
     constructor(scene, matrix) {
-        this._scene  = scene;
-        this._matrix = matrix;
-        this._previousCell = {
-            x : null,
-            y : null
-        };
+        this._scene          = scene;
+        this._matrix         = matrix;
+        this._playerGraphics = null;
     }
 
     /**
@@ -51,46 +48,54 @@ export default class Minimap {
      * @return {void}
      */
     update() {
+        if (this._playerGraphics === null) {
+            // Marker position
+            let x = LabyrinthConfig.WIDTH * this._scene.sense.position.ratio.x,
+                y = LabyrinthConfig.WIDTH * this._scene.sense.position.ratio.y;
 
-        // Reset previous cell color
-        if (this._previousCell.x !== null && this._previousCell.y !== null) {
-            let pathGraphics = this._scene.add.graphics({fillStyle : {color : LabyrinthConfig.MAPS.MINI_MAP.PATH_COLOR}});
-            pathGraphics.setScrollFactor(0);
-            let pathRect = this._buildRectangle(this._previousCell.x, this._previousCell.y);
-            pathGraphics.fillRectShape(pathRect);
+            // Display the marker on the map
+            this._playerGraphics = this._scene.add.graphics({fillStyle : {color : LabyrinthConfig.MAPS.MINI_MAP.PLAYER_COLOR}});
+            this._playerGraphics.setScrollFactor(0);
+            let rect = this._buildRectangle(x, y, true);
+            this._playerGraphics.fillRectShape(rect);
+
+            // Wait until it has been displayed to destroy it
+            setTimeout(() => {
+                this._playerGraphics.destroy();
+                this._playerGraphics = null
+            });
         }
-
-        let Xratio = this._scene.sense.position.ratio.x,
-            Yratio = this._scene.sense.position.ratio.y;
-
-        let x = Math.ceil(LabyrinthConfig.WIDTH * Xratio) - 1,
-            y = Math.ceil(LabyrinthConfig.WIDTH * Yratio) - 1;
-
-        let playerGraphics = this._scene.add.graphics({fillStyle : {color : LabyrinthConfig.MAPS.MINI_MAP.PLAYER_COLOR}});
-        playerGraphics.setScrollFactor(0);
-        let rect = this._buildRectangle(x, y);
-        playerGraphics.fillRectShape(rect);
-
-        this._previousCell = {x : x, y: y};
     }
 
     /**
      * Builds a minimap cell
      * @param {int} x
      * @param {int} y
+     * @param {boolean} isMarker
      * @return {Phaser.Geom.Rectangle}
      * @private
      */
-    _buildRectangle(x, y) {
-        let rect    = new Phaser.Geom.Rectangle();
+    _buildRectangle(x, y, isMarker = false) {
+        let rect = new Phaser.Geom.Rectangle();
+
         rect.width  = LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH;
         rect.height = LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT;
+        if (isMarker) {
+            rect.width  = LabyrinthConfig.MAPS.MINI_MAP.MARKER_WIDTH;
+            rect.height = LabyrinthConfig.MAPS.MINI_MAP.MARKER_HEIGHT;
+        }
 
         // Scene width - (minimap width) - (minimap X position) + (X position of the current cell of the minimap)
         rect.x = Config.width - (LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_X + x * LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH;
 
         // Scene height - (minimap height) - (minimap Y position) + (Y position of the current cell of the minimap)
         rect.y = Config.height - (LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_Y + y * LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT;
+
+        // Offsets the marker of half its size to place it properly on the map
+        if (isMarker) {
+            rect.x = rect.x - LabyrinthConfig.MAPS.MINI_MAP.MARKER_WIDTH / 2;
+            rect.y = rect.y - LabyrinthConfig.MAPS.MINI_MAP.MARKER_HEIGHT / 2;
+        }
 
         return rect;
     }
