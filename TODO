@@ -1,10 +1,5 @@
 Minimap
-  - Afficher la position du joueur
-    - l'algo en place n'est pas optimal, il ajoute indefiniment des rectangles blanc
-      sur la position precedente de l'utilisateur. Ca risque de faire beaucoup de rectangle avec l'avancement de la partie et de pomper une tonne de memoire
-      SOLUTION : Toujours garder le meme rectangle pour la position du joueur et updaté sa position
   - Faire apparaitre la map au fur et à mesure du deplacement du joueur
-
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
