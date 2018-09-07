@@ -49,11 +49,11 @@ export default class CharacterSelection extends AbstractScene
             line1Offset = 200,
             line2Offset = 100;
 
-        let sense1 = this._createSenseItem(centerX, line1Y, 'Sight', SenseConfig.SIGHT);
-        let sense2 = this._createSenseItem(centerX - line1Offset, line1Y, 'Sound', SenseConfig.SOUND);
-        let sense3 = this._createSenseItem(centerX + line1Offset, line1Y, 'Smell', SenseConfig.SMELL);
-        let sense4 = this._createSenseItem(centerX - line2Offset, line2Y, 'Taste', SenseConfig.TASTE);
-        let sense5 = this._createSenseItem(centerX + line2Offset, line2Y, 'Touch', SenseConfig.TOUCH);
+        let sense1 = this._createSenseItem(centerX, line1Y, 'Sight', SenseConfig.SIGHT),
+            sense2 = this._createSenseItem(centerX - line1Offset, line1Y, 'Sound', SenseConfig.SOUND),
+            sense3 = this._createSenseItem(centerX + line1Offset, line1Y, 'Smell', SenseConfig.SMELL),
+            sense4 = this._createSenseItem(centerX - line2Offset, line2Y, 'Taste', SenseConfig.TASTE),
+            sense5 = this._createSenseItem(centerX + line2Offset, line2Y, 'Touch', SenseConfig.TOUCH);
     }
 
     /**
