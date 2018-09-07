@@ -276,15 +276,9 @@ export default class Labyrinth {
                     }
 
                     // Cell between the node and the new created cell
-                    // TODO: factorize
-                    if (nextCellX !== x) {
-                        let xBetween                = (nextCellX + x) / 2;
-                        matrix[xBetween][nextCellY] = 1;
-                    }
-                    if (nextCellY !== y) {
-                        let yBetween                = (nextCellY + y) / 2;
-                        matrix[nextCellX][yBetween] = 1;
-                    }
+                    let xBetween               = (nextCellX + x) / 2,
+                        yBetween               = (nextCellY + y) / 2;
+                    matrix[xBetween][yBetween] = 1;
 
                     // Add a new node at the end of the nodes array
                     if (newNode) {
