@@ -5,9 +5,7 @@ Minimap
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
-- README.md
-  - Décrire le build (commandes docker npm webpack...)
-- Créer une mini carte avec "war fog"
+- Mettre à jour les dépendances : NPM + package.json
 - Créer un menu de pause
 - Créer des ennemis
     animations
