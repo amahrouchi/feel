@@ -11,8 +11,8 @@ export default class Labyrinth {
      * @param {AbstractScene} scene
      */
     constructor(scene) {
-        this._scene  = scene;
-        this._matrix = null;
+        this._scene   = scene;
+        this._matrix  = null;
         this._minimap = null;
     }
 
@@ -82,7 +82,7 @@ export default class Labyrinth {
     }
 
     /**
-     * Generated the JSON used to build the Tiled tilemap
+     * Generates the JSON used to build the Tiled tilemap
      * @return {{}}
      */
     _generateTilemapJSON(size) {
@@ -227,15 +227,15 @@ export default class Labyrinth {
         // Init the nodes
         let nodes = this._initNodes(center);
 
-        let nodeKey = 0;
-        let count   = 0;
+        let nodeKey = 0,
+            count   = 0;
         while (typeof(nodes[nodeKey]) !== 'undefined') {
             // Init current node data
-            let node = nodes[nodeKey];
-            let x    = node[0];
-            let y    = node[1];
+            let node = nodes[nodeKey],
+                x    = node[0],
+                y    = node[1];
 
-            // Coordinates for cell around the current one
+            // Coordinates for cells around the current one
             let around = [
                 [x, y + 2],
                 [x, y - 2],
@@ -247,10 +247,10 @@ export default class Labyrinth {
             for (let nextCell of around) {
 
                 // Cell coords
-                let nextCellX = nextCell[0];
-                let nextCellY = nextCell[1];
+                let nextCellX = nextCell[0],
+                    nextCellY = nextCell[1];
 
-                // Unavailable cell
+                // Unavailable cell (we are out of the matrix)
                 if (
                     typeof(matrix[nextCellX]) === 'undefined'
                     || typeof(matrix[nextCellX][nextCellY]) === 'undefined'
@@ -258,7 +258,7 @@ export default class Labyrinth {
                     continue;
                 }
 
-                // Loop creation
+                // Loop creation (creates a path to join an already existing path cell)
                 if (matrix[nextCellX][nextCellY] === 1) {
                     let rng = Math.random() * 100;
                     if (rng >= loopRatio) {
@@ -302,7 +302,7 @@ export default class Labyrinth {
     }
 
     /**
-     * Initializes the matrix
+     * Initializes the first cells of the matrix
      * @param {int} size
      * @param {int} center
      * @returns {[]}
@@ -340,7 +340,7 @@ export default class Labyrinth {
     }
 
     /**
-     * Initializes the nodes
+     * Initializes the cells of the matrix that will start the generation
      * @param {int} center
      * @returns {Array}
      * @private
