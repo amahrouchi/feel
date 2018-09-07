@@ -56,7 +56,6 @@ export default class Game extends AbstractScene {
             LabyrinthConfig.LOOP_RATIO,
             LabyrinthConfig.COMPLEXITY
         );
-        // this._labyrinth.consoleDisplay();
 
         // Load assets
         this.load.image('tiles', 'maps/bosquet.png');
@@ -71,13 +70,7 @@ export default class Game extends AbstractScene {
         this._sense = this._createSense(data.sense);
 
         // Create map layers
-        this._tilemap                     = this.add.tilemap('json_tilemap');
-        let groundTiles                   = this._tilemap.addTilesetImage('tiles');
-        this._layers.groundLayer          = this._tilemap.createStaticLayer('Ground', groundTiles, 0, 0);
-        this._layers.wallsDecorationLayer = this._tilemap.createDynamicLayer('WallsDecoration', groundTiles, 0, 0);
-        this._layers.wallsLayer           = this._tilemap.createDynamicLayer('Walls', groundTiles, 0, 0);
-        this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
-        this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
+        this._createLayers();
 
         // Draw the drawMinimap
         this._labyrinth.drawMinimap();
@@ -99,8 +92,6 @@ export default class Game extends AbstractScene {
             Config.width * LabyrinthConfig.DEADZONE_RATIO,
             Config.height * LabyrinthConfig.DEADZONE_RATIO
         );
-
-
     }
 
     /**
@@ -132,5 +123,20 @@ export default class Game extends AbstractScene {
             default:
                 throw 'Unknown sense selected.'
         }
+    }
+
+    /**
+     * Creates the layers of the map
+     * @return void
+     * @private
+     */
+    _createLayers() {
+        this._tilemap                     = this.add.tilemap('json_tilemap');
+        let groundTiles                   = this._tilemap.addTilesetImage('tiles');
+        this._layers.groundLayer          = this._tilemap.createStaticLayer('Ground', groundTiles, 0, 0);
+        this._layers.wallsDecorationLayer = this._tilemap.createDynamicLayer('WallsDecoration', groundTiles, 0, 0);
+        this._layers.wallsLayer           = this._tilemap.createDynamicLayer('Walls', groundTiles, 0, 0);
+        this._layers.wallsLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
+        this._layers.wallsDecorationLayer.setCollisionByExclusion([-1]); // Enable collision for this layer
     }
 }
