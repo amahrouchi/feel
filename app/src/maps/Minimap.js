@@ -85,11 +85,11 @@ export default class Minimap {
             rect.height = LabyrinthConfig.MAPS.MINI_MAP.MARKER_HEIGHT;
         }
 
-        // Scene width - (minimap width) - (minimap X position) + (X position of the current cell of the minimap)
-        rect.x = Config.width - (LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_X + x * LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH;
+        // (minimap X position) + (X position of the current cell of the minimap)
+        rect.x = this._xPosition() + x * LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH;
 
-        // Scene height - (minimap height) - (minimap Y position) + (Y position of the current cell of the minimap)
-        rect.y = Config.height - (LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_Y + y * LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT;
+        // (minimap Y position) + (Y position of the current cell of the minimap)
+        rect.y = this._yPosition() + y * LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT;
 
         // Offsets the marker of half its size to place it properly on the map
         if (isMarker) {
@@ -98,5 +98,25 @@ export default class Minimap {
         }
 
         return rect;
+    }
+
+    /**
+     * Minimap Y position
+     * @return {number}
+     * @private
+     */
+    _xPosition () {
+        // // Scene width - (minimap width) - (minimap X position)
+        return Config.width - (LabyrinthConfig.MAPS.MINI_MAP.CELL_WIDTH * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_X;
+    }
+
+    /**
+     * Minimap Y position
+     * @return {number}
+     * @private
+     */
+    _yPosition () {
+        // Scene height - (minimap height) - (minimap Y position)
+        return Config.height - (LabyrinthConfig.MAPS.MINI_MAP.CELL_HEIGHT * LabyrinthConfig.WIDTH) - LabyrinthConfig.MAPS.MINI_MAP.POSITION_Y;
     }
 }
