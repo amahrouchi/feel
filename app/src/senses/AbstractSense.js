@@ -99,6 +99,50 @@ export default class AbstractSense
         }
 
         // Play animations
+        this._animate(keys);
+
+        // Move the player
+        this._move(keys);
+
+        // Change QWERTY/AZERTY
+        this._switchKeyMode();
+
+        //Attack
+        this._bindAttack();
+
+        // Update user's position
+        this._position.ratio.x = Math.round(this._sprite.x * 10000 / this._scene.tilemap.widthInPixels) / 10000;
+        this._position.ratio.y = Math.round(this._sprite.y * 10000 / this._scene.tilemap.heightInPixels) / 10000;
+    }
+
+    /**
+     * Moves the player's sprite
+     * @param {{}} keys
+     * @return {void}
+     * @private
+     */
+    _move(keys) {
+        if (keys.right.isDown) {
+            this._sprite.setVelocityX(SenseConfig.PLAYER_SPEED);
+        }
+        if (keys.left.isDown) {
+            this._sprite.setVelocityX(-SenseConfig.PLAYER_SPEED);
+        }
+        if (keys.down.isDown) {
+            this._sprite.setVelocityY(SenseConfig.PLAYER_SPEED);
+        }
+        if (keys.up.isDown) {
+            this._sprite.setVelocityY(-SenseConfig.PLAYER_SPEED);
+        }
+    }
+
+    /**
+     * Animates the player's sprite
+     * @param {{}} keys
+     * @return {void}
+     * @private
+     */
+    _animate(keys) {
         if (keys.right.isDown) {
             this._sprite.anims.play('walkRight', true);
             this._direction = 'right';
@@ -115,22 +159,14 @@ export default class AbstractSense
             this._sprite.anims.play('idle', true);
             this._direction = 'stop';
         }
+    }
 
-        // Move the player
-        if (keys.right.isDown) {
-            this._sprite.setVelocityX(SenseConfig.PLAYER_SPEED);
-        }
-        if (keys.left.isDown) {
-            this._sprite.setVelocityX(-SenseConfig.PLAYER_SPEED);
-        }
-        if (keys.down.isDown) {
-            this._sprite.setVelocityY(SenseConfig.PLAYER_SPEED);
-        }
-        if (keys.up.isDown) {
-            this._sprite.setVelocityY(-SenseConfig.PLAYER_SPEED);
-        }
-
-        // Change QWERTY/AZERTY
+    /**
+     * Switches the key mode (QWERTY <=> AZERTY)
+     * @return {void}
+     * @private
+     */
+    _switchKeyMode() {
         if (this._canChangeKeyMode && this._keys.switch.isDown) {
             this._keyMode = this._keyMode === SenseConfig.QWERTY
                 ? SenseConfig.AZERTY
@@ -142,13 +178,6 @@ export default class AbstractSense
                 this._canChangeKeyMode = true;
             }, 200);
         }
-
-        //Attack
-        this._bindAttack();
-
-        // Update user's position
-        this._position.ratio.x = Math.round(this._sprite.x * 10000 / this._scene.tilemap.widthInPixels) / 10000;
-        this._position.ratio.y = Math.round(this._sprite.y * 10000 / this._scene.tilemap.heightInPixels) / 10000;
     }
 
     /**
@@ -187,6 +216,7 @@ export default class AbstractSense
 
     /**
      * Creates keys to move the player
+     * @return {void}
      * @private
      */
     _createKeys() {
@@ -222,6 +252,7 @@ export default class AbstractSense
      * Resets the player attacking state after the animation
      * @param animation
      * @param frame
+     * @return {void}
      * @private
      */
     _endAttack(animation, frame) {
@@ -232,6 +263,7 @@ export default class AbstractSense
 
     /**
      * Binds the attack to the left click
+     * @return {void}
      * @private
      */
     _bindAttack() {
