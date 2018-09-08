@@ -1,12 +1,9 @@
-Minimap
-  - Faire apparaitre la map au fur et à mesure du deplacement du joueur
+...
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
-- Mettre à jour les dépendances : NPM + package.json
-- Build ElectronJS
 - Créer des ennemis
     animations
     attaque
@@ -17,3 +14,14 @@ Minimap
     Sorti du labyrinthe + victoire
     systeme de score (temps? points? les 2? ....)
 - Créer un menu de pause
+
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+GRANDES ÉTAPES DE DEV
+
+- Faire une version web solo
+- Faire une version web multi
+- Wrapper le tout dans ElectronJS
