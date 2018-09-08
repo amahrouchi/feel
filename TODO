@@ -6,6 +6,7 @@ Minimap
 ----------------------------------------------------------------------------
 
 - Mettre à jour les dépendances : NPM + package.json
+- Build ElectronJS
 - Créer un menu de pause
 - Créer des ennemis
     animations
