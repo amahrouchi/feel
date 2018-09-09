@@ -22,13 +22,13 @@ export default {
      * The ratio used to generate the labyrinth loops
      * @var {int}
      */
-    LOOP_RATIO : 10,
+    LOOP_RATIO : 25,
 
     /**
      * The complexity of the labyrinth
      * @var {int}
      */
-    COMPLEXITY : 290,
+    COMPLEXITY : 400,
 
     /**
      * The tiles size in the forest tileset
