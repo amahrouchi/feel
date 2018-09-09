@@ -295,6 +295,25 @@ export default class Labyrinth {
             nodeKey++;
         }
 
+        // Clean all the little loops created in the matrix
+        for (let y = 0; y < LabyrinthConfig.WIDTH; y++) {
+            for (let x = 0; x < LabyrinthConfig.WIDTH; x++) {
+                if (
+                    matrix[y][x] === 0
+                    && typeof(matrix[y]) !== 'undefined' && typeof(matrix[y][x + 1]) !== 'undefined' && matrix[y][x + 1] === 1
+                    && typeof(matrix[y]) !== 'undefined' && typeof(matrix[y][x - 1]) !== 'undefined' && matrix[y][x - 1] === 1
+                    && typeof(matrix[y + 1]) !== 'undefined' && typeof(matrix[y + 1][x]) !== 'undefined' && matrix[y + 1][x] === 1
+                    && typeof(matrix[y - 1]) !== 'undefined' && typeof(matrix[y - 1][x]) !== 'undefined' && matrix[y - 1][x] === 1
+                    && typeof(matrix[y + 1]) !== 'undefined' && typeof(matrix[y + 1][x + 1]) !== 'undefined' && matrix[y + 1][x + 1] === 1
+                    && typeof(matrix[y + 1]) !== 'undefined' && typeof(matrix[y + 1][x - 1]) !== 'undefined' && matrix[y + 1][x - 1] === 1
+                    && typeof(matrix[y - 1]) !== 'undefined' && typeof(matrix[y - 1][x + 1]) !== 'undefined' && matrix[y - 1][x + 1] === 1
+                    && typeof(matrix[y - 1]) !== 'undefined' && typeof(matrix[y - 1][x - 1]) !== 'undefined' && matrix[y - 1][x - 1] === 1
+                ) {
+                    matrix[y][x] = 1;
+                }
+            }
+        }
+
         return {
             'count'  : count,
             'matrix' : matrix
