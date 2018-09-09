@@ -27,10 +27,17 @@ At the time I am writing this I use the version `6.1` of NPM
 
 ```
 
+## Docker
+
 ## Build
 
-Using your terminal, go to the project directory and type:
+Using your terminal, go to the project directory and build the docker env with the command:
 
+```bash
+docker-compose up -d --build
+```
+
+Then, to build the app, run:
 ```bash
 npm run build
 ```
