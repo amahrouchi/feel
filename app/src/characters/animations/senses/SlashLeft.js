@@ -1,5 +1,5 @@
-import AbstractAnimation from "./AbstractAnimation";
-import SenseConfig from "../config/sense";
+import AbstractAnimation from "../AbstractAnimation";
+import SenseConfig from "../../../config/sense";
 
 /**
  * The slash left animation class

@@ -1,5 +1,5 @@
-import SenseConfig from "../config/sense";
-import LabyrinthConfig from "../config/labyrinth";
+import SenseConfig from "../../config/sense";
+import LabyrinthConfig from "../../config/labyrinth";
 
 /**
  * Abstract player class

@@ -1,13 +1,13 @@
 import AbstractScene from "./AbstractScene";
-import Idle from "../animations/Idle";
-import WalkFront from "../animations/WalkFront";
-import WalkBack from "../animations/WalkBack";
-import WalkRight from "../animations/WalkRight";
-import WalkLeft from "../animations/WalkLeft";
-import SlashDown from "../animations/SlashDown";
-import SlashUp from "../animations/SlashUp";
-import SlashLeft from "../animations/SlashLeft";
-import SlashRight from "../animations/SlashRight";
+import Idle from "../characters/animations/senses/Idle";
+import WalkFront from "../characters/animations/senses/WalkFront";
+import WalkBack from "../characters/animations/senses/WalkBack";
+import WalkRight from "../characters/animations/senses/WalkRight";
+import WalkLeft from "../characters/animations/senses/WalkLeft";
+import SlashDown from "../characters/animations/senses/SlashDown";
+import SlashUp from "../characters/animations/senses/SlashUp";
+import SlashLeft from "../characters/animations/senses/SlashLeft";
+import SlashRight from "../characters/animations/senses/SlashRight";
 
 /**
  * Preload scene
