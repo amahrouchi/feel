@@ -1,4 +1,18 @@
-...
+Animer le squelette
+    - le faire apparaitre en random dans le labyrinthe
+        - faire une classe MonsterManager pour gérer les spawn des ennemis
+        - faire apparaitrer un ennemi
+            que s'il n'y en pas alentour
+            avec un ratio de 10% de chance par case
+        - les ennemis sont invincibles pendant leur animation de spawn
+
+    - faire les animations d'attaque, marche, idle, death et spawn (spawn = death à l'envers)
+    - le faire marcher dans un rayon bien défini de sa zone de spawn
+    - quand il attaquera définir sa distance avant reset et retour à son point de spawn
+    - détection et attaque du joueur le plus proche
+    - barre de vie pour le joueur et le monstre (factoriser)
+    - animation de mort pour le joueur et le monstre
+
 
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
