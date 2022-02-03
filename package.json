@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack"
+    "start" : "webpack & docker-compose up -d"
   },
   "dependencies": {
     "phaser": "^3.12.0"

@@ -10,7 +10,7 @@ At the time I am writing this I use the version `6.1` of NPM
 ```json
 {
   "scripts": {
-    "build": "webpack"
+    "start" : "webpack && docker-compose up -d"
   },
   "dependencies": {
     "phaser": "^3.12.0"
@@ -31,14 +31,9 @@ At the time I am writing this I use the version `6.1` of NPM
 
 ## Build
 
-Using your terminal, go to the project directory and build the docker env with the command:
-
+To build the phaser app using webpack and launch it in a Docker container, use:
 ```bash
-docker-compose up -d --build
+npm start
 ```
 
-Then, to build the app, run:
-```bash
-npm run build
-```
-
+The game is accessible at the URL: http://localhost:8888/
