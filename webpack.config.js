@@ -1,18 +1,17 @@
 let path    = require('path');
-let webpack = require('webpack');
 
 // Phaser
 let phaserModule = path.join(__dirname, '/node_modules/phaser/');
-let phaser = path.join(phaserModule, 'dist/phaser.min.js');
+let phaser       = path.join(phaserModule, 'dist/phaser.min.js');
 
 module.exports = {
-    mode    : 'development',
-    entry   : './app/src/app.js',
-    output  : {
+    mode   : 'development',
+    entry  : './app/src/app.js',
+    output : {
         path     : path.resolve(__dirname, 'app/public/js'),
         filename : 'app.bundle.js'
     },
-    module  : {
+    module : {
         rules : [
             {
                 test    : /\.js$/,
@@ -20,16 +19,25 @@ module.exports = {
                 use     : 'babel-loader'
             },
             {
-                test: /phaser\.min\.js$/,
-                use: ['expose-loader?Phaser']
+                test : /phaser\.min\.js$/,
+                use  : [
+                    {
+                        loader  : 'expose-loader',
+                        options : {
+                            exposes : {
+                                globalName : 'Phaser',
+                                override   : true,
+                            },
+                        },
+                    },
+                ],
             }
         ]
     },
-
-    resolve: {
+    resolve : {
         // alias to import modules in ES6 JS scripts
-        alias: {
-            'phaser': phaser,
+        alias : {
+            'phaser' : phaser,
         }
     },
     stats   : {
